@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"com.parkit.parkingsystem.service","c":"FareCalculatorService","l":"calculateFare(Ticket)","url":"calculateFare(com.parkit.parkingsystem.model.Ticket)"},{"p":"com.parkit.parkingsystem.service","c":"FareCalculatorService","l":"FareCalculatorService()","url":"%3Cinit%3E()"}]
