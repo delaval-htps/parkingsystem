@@ -12,12 +12,24 @@ import java.sql.Timestamp;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Service to manage(CRUD) entity of a ticket into the SGBD.
+ * 
+ * @author delaval
+ *
+ */
 public class TicketDao {
 
   private static final Logger logger = LogManager.getLogger("TicketDAO");
 
   public DataBaseConfig dataBaseConfig = new DataBaseConfig();
 
+  /**
+   * save the ticket in the database ticket.
+   * 
+   * @param ticket represent the ticket of a vehicle
+   * @return boolean true or false if the ticket was saved or not
+   */
   public boolean saveTicket(Ticket ticket) {
     Connection con = null;
     try {
@@ -40,6 +52,12 @@ public class TicketDao {
     }
   }
 
+  /**
+   * return the ticket for vehicle with the number plate given in parameter.
+   * 
+   * @param vehicleRegNumber the number plate of the vehicle
+   * @return the ticket associated with the vehicle
+   */
   public Ticket getTicket(String vehicleRegNumber) {
     Connection con = null;
     Ticket ticket = null;
@@ -70,6 +88,12 @@ public class TicketDao {
     }
   }
 
+  /**
+   * update a ticket given in the parameter with the correct informations.
+   * 
+   * @param ticket the ticket of vehicle
+   * @return boolean true or false if the ticket was correctly updated
+   */
   public boolean updateTicket(Ticket ticket) {
     Connection con = null;
     try {
