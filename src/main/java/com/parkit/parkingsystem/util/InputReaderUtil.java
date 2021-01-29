@@ -4,11 +4,22 @@ import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * instrument to read data from console.
+ * 
+ * @author delaval
+ *
+ */
 public class InputReaderUtil {
 
   private static Scanner scan = new Scanner(System.in);
   private static final Logger logger = LogManager.getLogger("InputReaderUtil");
 
+  /**
+   * method use to read the number corresponding to the choice for the menu.
+   * 
+   * @return the number of the menu's process
+   */
   public int readSelection() {
     try {
       int input = Integer.parseInt(scan.nextLine());
@@ -20,6 +31,13 @@ public class InputReaderUtil {
     }
   }
 
+  /**
+   * method to read the number plate from the console.
+   * 
+   * @return a String = the number plate of the vehicle
+   * @throws Exception a error when reading the number plate and display a error's message on
+   *         console
+   */
   public String readVehicleRegistrationNumber() throws Exception {
     try {
       String vehicleRegNumber = scan.nextLine();

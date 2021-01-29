@@ -6,10 +6,19 @@ import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Interface of display menu on console out.
+ * 
+ * @author delaval
+ *
+ */
 public class InteractiveShell {
 
   private static final Logger logger = LogManager.getLogger("InteractiveShell");
 
+  /**
+   * method to set a menu on console according to actions in the park.
+   */
   public static void loadInterface() {
     logger.info("App initialized!!!");
     System.out.println("Welcome to Parking System!");

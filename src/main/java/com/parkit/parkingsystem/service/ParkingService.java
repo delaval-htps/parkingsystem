@@ -10,6 +10,12 @@ import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Services to control the access of vehicle in the park.
+ * 
+ * @author delaval
+ *
+ */
 public class ParkingService {
 
   private static final Logger logger = LogManager.getLogger("ParkingService");
@@ -20,6 +26,14 @@ public class ParkingService {
   private ParkingSpotDao parkingSpotDao;
   private TicketDao ticketDao;
 
+  /**
+   * Constructor with parameters.
+   * 
+   * @param inputReaderUtil the object allowing to read in console the number of validation menu and
+   *        the number plate of vehicle
+   * @param parkingSpotDao service to manage the parking place into the SGBD
+   * @param ticketDao service to manage the parking place into the SGBD
+   */
   public ParkingService(InputReaderUtil inputReaderUtil, ParkingSpotDao parkingSpotDao,
       TicketDao ticketDao) {
     this.inputReaderUtil = inputReaderUtil;
@@ -27,6 +41,10 @@ public class ParkingService {
     this.ticketDao = ticketDao;
   }
 
+  /**
+   * define the process when a vehicle incomes into the park. it generates a ticket and gives a
+   * number place available for a vehicle.
+   */
   public void processIncomingVehicle() {
     try {
       ParkingSpot parkingSpot = getNextParkingNumberIfAvailable();
@@ -62,6 +80,12 @@ public class ParkingService {
     return inputReaderUtil.readVehicleRegistrationNumber();
   }
 
+  /**
+   * method to give the next number place available in the park.
+   * 
+   * @return a ParkingSpot including: the type of the vehicle, the number of the parking place used
+   *         and its availability
+   */
   public ParkingSpot getNextParkingNumberIfAvailable() {
     int parkingNumber = 0;
     ParkingSpot parkingSpot = null;
@@ -100,6 +124,10 @@ public class ParkingService {
     }
   }
 
+  /**
+   * define the process when a vehicle exits from the park. it updates the ticket with the out time
+   * and the price and released the parking place.
+   */
   public void processExitingVehicle() {
     try {
       String vehicleRegNumber = getVehichleRegNumber();

@@ -1,8 +1,13 @@
 package com.parkit.parkingsystem.model;
 
-import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * represent the ticket of a parked vehicle.
+ * 
+ * @author delaval
+ *
+ */
 public class Ticket {
   private int id;
   private ParkingSpot parkingSpot;
