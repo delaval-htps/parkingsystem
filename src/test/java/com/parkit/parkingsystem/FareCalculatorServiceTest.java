@@ -335,6 +335,7 @@ public class FareCalculatorServiceTest {
       ticket.setInTime(inTime);
       ticket.setOutTime(outTime);
       ticket.setParkingSpot(parkingSpot);
+      fareCalculatorService.calculateFare(ticket);
 
       //ASSERT
       assertThat(0.95 * Fare.CAR_RATE_PER_HOUR).isEqualTo(ticket.getPrice());
@@ -354,6 +355,7 @@ public class FareCalculatorServiceTest {
       ticket.setInTime(inTime);
       ticket.setOutTime(outTime);
       ticket.setParkingSpot(parkingSpot);
+      fareCalculatorService.calculateFare(ticket);
 
       // ASSERT
       assertThat(0.95 * Fare.BIKE_RATE_PER_HOUR).isEqualTo(ticket.getPrice());
@@ -373,6 +375,7 @@ public class FareCalculatorServiceTest {
       ticket.setInTime(inTime);
       ticket.setOutTime(outTime);
       ticket.setParkingSpot(parkingSpot);
+      fareCalculatorService.calculateFare(ticket);
 
       // ASSERT
       assertThat(Fare.CAR_RATE_PER_HOUR).isEqualTo(ticket.getPrice());
@@ -392,6 +395,7 @@ public class FareCalculatorServiceTest {
       ticket.setInTime(inTime);
       ticket.setOutTime(outTime);
       ticket.setParkingSpot(parkingSpot);
+      fareCalculatorService.calculateFare(ticket);
 
       // ASSERT
       assertThat(Fare.BIKE_RATE_PER_HOUR).isEqualTo(ticket.getPrice());
