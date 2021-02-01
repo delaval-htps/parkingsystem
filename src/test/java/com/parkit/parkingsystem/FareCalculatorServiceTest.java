@@ -1,5 +1,6 @@
 package com.parkit.parkingsystem;
 
+import static org.assertj.core.api.Assertions.assertThat;
 // import static junit
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -292,6 +293,138 @@ public class FareCalculatorServiceTest {
       inTime.setTime(System.currentTimeMillis() - (30 * 60 * 1000));
       Date outTime = new Date();
       ParkingSpot parkingSpot = new ParkingSpot(1, null, false);
+
+      // ACT
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+
+      // ASSERT
+      assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket));
+    }
+  }
+
+  /**
+   * Test class to verify that a recurring user has a discount of 5% to his parking price.<br>
+   * <strong>Test cases:</strong>
+   * <ul>
+   * <li>parking time [FirstTime, RecurringUser]</li>
+   * <li>type of vehicle: [Bike,Car,Other]</li>
+   * </ul>
+   * <strong>Test case set =</strong> {[RecurringUser,Bike],
+   * [RecurringUser,Car],[FirsTime,Bike],[FirsTime,Car],[FirstTime,Other],[Recurring,Other]}
+   * 
+   * @author delaval
+   *
+   */
+  @Nested
+  @Tag("CalculateFarWithDiscount")
+  @DisplayName("calculate far for recurring users")
+  class CalculateFarWithFivePourcentsDiscount {
+    @Test
+    public void calculateFarRecurringCarOneHourParkingTime() {
+      //ARRANGE
+      Date inTime = new Date();
+      inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
+      Date outTime = new Date();
+
+      ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+      ticket.setIsRecurringUser(true);
+
+      //ACT
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+
+      //ASSERT
+      assertThat(0.95 * Fare.CAR_RATE_PER_HOUR).isEqualTo(ticket.getPrice());
+    }
+
+    @Test
+    public void calculateFarRecurringBikeOneHourParkingTime() {
+      // ARRANGE
+      Date inTime = new Date();
+      inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
+      Date outTime = new Date();
+
+      ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
+      ticket.setIsRecurringUser(true);
+
+      // ACT
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+
+      // ASSERT
+      assertThat(0.95 * Fare.BIKE_RATE_PER_HOUR).isEqualTo(ticket.getPrice());
+    }
+
+    @Test
+    public void calculateFarCarFirstPArkingTime() {
+      // ARRANGE
+      Date inTime = new Date();
+      inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
+      Date outTime = new Date();
+
+      ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+      ticket.setIsRecurringUser(false);
+
+      // ACT
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+
+      // ASSERT
+      assertThat(Fare.CAR_RATE_PER_HOUR).isEqualTo(ticket.getPrice());
+    }
+
+    @Test
+    public void calculateFarBikeFirstPArkingTime() {
+      // ARRANGE
+      Date inTime = new Date();
+      inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
+      Date outTime = new Date();
+
+      ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
+      ticket.setIsRecurringUser(false);
+
+      // ACT
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+
+      // ASSERT
+      assertThat(Fare.BIKE_RATE_PER_HOUR).isEqualTo(ticket.getPrice());
+    }
+
+    @Test
+    public void calculateFarUnknowTypeUserFirstPArkingTime() {
+      // ARRANGE
+      Date inTime = new Date();
+      inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
+      Date outTime = new Date();
+
+      ParkingSpot parkingSpot = new ParkingSpot(1, null, false);
+      ticket.setIsRecurringUser(false);
+
+      // ACT
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+
+      // ASSERT
+      assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket));
+    }
+
+    @Test
+    public void calculateFarUnknowTypeUserRecurring() {
+      // ARRANGE
+      Date inTime = new Date();
+      inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
+      Date outTime = new Date();
+
+      ParkingSpot parkingSpot = new ParkingSpot(1, null, false);
+      ticket.setIsRecurringUser(true);
 
       // ACT
       ticket.setInTime(inTime);
