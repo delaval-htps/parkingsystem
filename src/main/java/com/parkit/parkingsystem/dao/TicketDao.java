@@ -34,6 +34,10 @@ public class TicketDao {
     Connection con = null;
     try {
       con = dataBaseConfig.getConnection();
+
+
+
+      // save the ticket with its values
       PreparedStatement ps = con.prepareStatement(DbConstants.SAVE_TICKET);
       // ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
       // ps.setInt(1,ticket.getId());
@@ -63,10 +67,20 @@ public class TicketDao {
     Ticket ticket = null;
     try {
       con = dataBaseConfig.getConnection();
-      PreparedStatement ps = con.prepareStatement(DbConstants.GET_TICKET);
+      PreparedStatement ps;
+      ResultSet rs;
+
+      // First: verification of type of user : recurring or not ?
+      ps = con.prepareStatement(DbConstants.VERIFY_RECURRING_USER);
+      ps.setString(1, vehicleRegNumber);
+      rs = ps.executeQuery();
+      boolean isRecurring = (rs.getInt(1) == 0) ? false : true;
+
+      // Second: get values of the ticket
+      ps = con.prepareStatement(DbConstants.GET_TICKET);
       // ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
       ps.setString(1, vehicleRegNumber);
-      ResultSet rs = ps.executeQuery();
+      rs = ps.executeQuery();
       if (rs.next()) {
         ticket = new Ticket();
         ParkingSpot parkingSpot =
@@ -77,6 +91,7 @@ public class TicketDao {
         ticket.setPrice(rs.getDouble(3));
         ticket.setInTime(rs.getTimestamp(4));
         ticket.setOutTime(rs.getTimestamp(5));
+        ticket.setIsRecurringUser(isRecurring);
       }
       dataBaseConfig.closeResultSet(rs);
       dataBaseConfig.closePreparedStatement(ps);
