@@ -9,6 +9,21 @@ This app uses Java to run and stores the data in Mysql DB.
 - Implementation of Integration Testing in ParkingDataBaseIT to check the database.
 - Implementation of Javadoc in **doc/**
 
+**V0.1.1**:
+
+* <ins>Implementation of story#1</ins>: Free 30 min Parking in TDD
+    * implementation of class UT  CalculateFarUnder30Min in FarCalculateServiceTest
+    * implementation of code in FarCalculateService to check Uts: OK
+    
+
+* <ins>Implementation of Story#2:</ins> 5%-Discount for recurring users in TDD
+    * implementation of class UT CalculateFarWithFivePourcentsDiscount in FareCalculateServiceTest
+    * update of method getTicket() in TicketDao to check if user is recurring 
+    * update of SQL Queries in DbConstants to check if suer is recurring and to get the good ticket for the vehicle 
+    * implementation of code in FareCalculateService to check UTs: OK
+
+* <ins>update javadoc</ins>
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -53,4 +68,15 @@ The app has unit tests and integration tests written. More of these need to be a
 
 To run the tests from maven, go to the folder that contains the pom.xml file and execute the below command.
 
-`mvn test`
+
+* To run Unit Tests -> `mvn test`
+* To run Unit Tests and Integration Tests -> `mvn verify` 	
+* To run only Integration Tests -> `mvn verify -DskipUTs`
+
+### Jacoco reports
+
+After run the tests with the CLI , the reports of Jacoco are in :
+
+* For unit tests : **target/site/jacoco-unit-test-coverage-report/index.html**
+* For integration tests: **target/site/jacoco-integration-test-coverage-report/index.html**
+

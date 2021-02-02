@@ -36,10 +36,13 @@ public class FareCalculatorService {
 
     Long duration = outHour - inHour;
 
+
+
     // calculation of the duration in a number of hours in type double (need to cast in double
     // else we loose the decimal numbers)
 
-    double durationNumberHours = (double) (duration / (1000 * 60)) / 60;
+    double durationNumberHours =
+        (duration > (0.5 * 60 * 60 * 1000)) ? (double) (duration / (1000 * 60)) / 60 : 0;
 
     switch (ticket.getParkingSpot().getParkingType()) {
       case CAR: {
@@ -53,5 +56,9 @@ public class FareCalculatorService {
       default:
         throw new IllegalArgumentException("Unkown Parking Type");
     }
+    if (ticket.getIsRecurringUser()) {
+      ticket.setPrice(ticket.getPrice() * 0.95);
+    }
+
   }
 }

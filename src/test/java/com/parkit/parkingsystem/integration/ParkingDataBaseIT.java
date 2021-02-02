@@ -19,7 +19,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
+/**
+ * class of integration tests to check the use of Database.
+ * 
+ * @author delaval
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
   private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
@@ -54,6 +59,9 @@ public class ParkingDataBaseIT {
    
   }
 
+  /**
+   * Test to check if a ticket is correctly save in database when a car is parked.
+   */
   @Test
   public void testParkingACar() {
     // GIVEN
@@ -94,13 +102,15 @@ public class ParkingDataBaseIT {
 
   }
 
+  /**
+   * test to check if the far and out time are correctly generated and save in database.
+   */
   @Test
   public void testParkingLotExit() {
     // GIVEN:change testParkingACar() by parkingService.processIncomingVehicle to not depends of the
     // first IT and respect "FIRST"
 
-    ParkingService parkingService =
-        new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+    ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
     parkingService.processIncomingVehicle();
 
