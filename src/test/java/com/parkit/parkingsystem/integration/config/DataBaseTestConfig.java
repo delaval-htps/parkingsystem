@@ -9,6 +9,12 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * class of configuration to connect to the database.
+ * 
+ * @author delaval
+ *
+ */
 public class DataBaseTestConfig extends DataBaseConfig {
 
   private static final Logger logger = LogManager.getLogger("DataBaseTestConfig");
