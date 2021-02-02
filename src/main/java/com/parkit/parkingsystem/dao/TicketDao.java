@@ -49,8 +49,8 @@ public class TicketDao {
       logger.error("Error fetching next available slot", ex);
     } finally {
       dataBaseConfig.closeConnection(con);
-      return false;
     }
+    return false;
   }
 
   /**
@@ -98,8 +98,8 @@ public class TicketDao {
       logger.error("Error fetching next available slot", ex);
     } finally {
       dataBaseConfig.closeConnection(con);
-      return ticket;
     }
+    return ticket;
   }
 
   /**
