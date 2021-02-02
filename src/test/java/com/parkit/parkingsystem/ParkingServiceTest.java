@@ -20,7 +20,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
+/**
+ * class of tests to check the use of {@link ParkingService}.
+ * 
+ * @author delaval
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 public class ParkingServiceTest {
   private static ParkingService parkingService;

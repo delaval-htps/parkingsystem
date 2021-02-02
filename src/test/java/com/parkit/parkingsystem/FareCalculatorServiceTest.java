@@ -18,6 +18,12 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+/**
+ * class Test with all unit tests for the class {@link FareCalculatorService}.
+ * 
+ * @author delaval
+ *
+ */
 public class FareCalculatorServiceTest {
   private static FareCalculatorService fareCalculatorService;
   private Ticket ticket;
@@ -32,12 +38,18 @@ public class FareCalculatorServiceTest {
     ticket = new Ticket();
   }
 
+  /**
+   * class test to check the calculation of far to any type of vehicle.
+   * 
+   * @author delaval
+   *
+   */
   @Nested
   @Tag("CalculateFar")
   @DisplayName("CalculateFar for any type of  vehicle")
   class CalculateFar {
-    @Test
 
+    @Test
     public void calculateFareCar() {
       // ARRANGE
       Date inTime = new Date();
@@ -90,85 +102,87 @@ public class FareCalculatorServiceTest {
       // ASSERT
       assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket));
     }
+
+
+    @Test
+    public void calculateFareBikeWithFutureInTime() {
+      // ARRANGE
+      Date inTime = new Date();
+      inTime.setTime(System.currentTimeMillis() + (60 * 60 * 1000));
+      Date outTime = new Date();
+      ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
+
+      // ACT
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+
+      // ACT
+      assertThrows(IllegalArgumentException.class,
+          () -> fareCalculatorService.calculateFare(ticket));
+    }
+
+    @Test
+    public void calculateFareBikeWithLessThanOneHourParkingTime() {
+      // ARRANGE
+      Date inTime = new Date();
+      // 45 minutes parking time should give 3/4th
+      inTime.setTime(System.currentTimeMillis() - (45 * 60 * 1000));
+      // parking fare
+      Date outTime = new Date();
+      ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
+
+      // ACT
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+      fareCalculatorService.calculateFare(ticket);
+
+      // ASSERT
+      assertEquals((0.75 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice());
+    }
+
+    @Test
+    public void calculateFareCarWithLessThanOneHourParkingTime() {
+      // ARRANGE
+      Date inTime = new Date();
+      // 45 minutes parking time should give 3/4th
+      inTime.setTime(System.currentTimeMillis() - (45 * 60 * 1000));
+      // parking fare
+      Date outTime = new Date();
+      ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+
+      // ACT
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+      fareCalculatorService.calculateFare(ticket);
+
+      // ASSERT
+      assertEquals((0.75 * Fare.CAR_RATE_PER_HOUR), ticket.getPrice());
+    }
+
+    @Test
+    public void calculateFareCarWithMoreThanADayParkingTime() {
+      // ARRANGE
+      Date inTime = new Date();
+      // 24 hours parking time should give 24 *
+      inTime.setTime(System.currentTimeMillis() - (24 * 60 * 60 * 1000));
+      // parking fare per hour
+      Date outTime = new Date();
+      ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+
+      // ACT
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+      fareCalculatorService.calculateFare(ticket);
+
+      // ASSERT
+      assertEquals((24 * Fare.CAR_RATE_PER_HOUR), ticket.getPrice());
+    }
   }
 
-  @Test
-  public void calculateFareBikeWithFutureInTime() {
-    // ARRANGE
-    Date inTime = new Date();
-    inTime.setTime(System.currentTimeMillis() + (60 * 60 * 1000));
-    Date outTime = new Date();
-    ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
-
-    // ACT
-    ticket.setInTime(inTime);
-    ticket.setOutTime(outTime);
-    ticket.setParkingSpot(parkingSpot);
-
-    // ACT
-    assertThrows(IllegalArgumentException.class, () -> fareCalculatorService.calculateFare(ticket));
-  }
-
-  @Test
-  public void calculateFareBikeWithLessThanOneHourParkingTime() {
-    // ARRANGE
-    Date inTime = new Date();
-    // 45 minutes parking time should give 3/4th
-    inTime.setTime(System.currentTimeMillis() - (45 * 60 * 1000));
-    // parking fare
-    Date outTime = new Date();
-    ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
-
-    // ACT
-    ticket.setInTime(inTime);
-    ticket.setOutTime(outTime);
-    ticket.setParkingSpot(parkingSpot);
-    fareCalculatorService.calculateFare(ticket);
-
-    // ASSERT
-    assertEquals((0.75 * Fare.BIKE_RATE_PER_HOUR), ticket.getPrice());
-  }
-
-  @Test
-  public void calculateFareCarWithLessThanOneHourParkingTime() {
-    // ARRANGE
-    Date inTime = new Date();
-    // 45 minutes parking time should give 3/4th
-    inTime.setTime(System.currentTimeMillis() - (45 * 60 * 1000));
-    // parking fare
-    Date outTime = new Date();
-    ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
-
-    // ACT
-    ticket.setInTime(inTime);
-    ticket.setOutTime(outTime);
-    ticket.setParkingSpot(parkingSpot);
-    fareCalculatorService.calculateFare(ticket);
-
-    // ASSERT
-    assertEquals((0.75 * Fare.CAR_RATE_PER_HOUR), ticket.getPrice());
-  }
-
-  @Test
-  public void calculateFareCarWithMoreThanADayParkingTime() {
-    // ARRANGE
-    Date inTime = new Date();
-    // 24 hours parking time should give 24 *
-    inTime.setTime(System.currentTimeMillis() - (24 * 60 * 60 * 1000));
-    // parking fare per hour
-    Date outTime = new Date();
-    ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
-
-    // ACT
-    ticket.setInTime(inTime);
-    ticket.setOutTime(outTime);
-    ticket.setParkingSpot(parkingSpot);
-    fareCalculatorService.calculateFare(ticket);
-
-    // ASSERT
-    assertEquals((24 * Fare.CAR_RATE_PER_HOUR), ticket.getPrice());
-  }
-  
   /**
    * Test class to verify if any type of vehicle with a parking time under 30 minutes has a park for
    * free.<br>
