@@ -56,5 +56,9 @@ public class FareCalculatorService {
       default:
         throw new IllegalArgumentException("Unkown Parking Type");
     }
+    if (ticket.getIsRecurringUser()) {
+      ticket.setPrice(ticket.getPrice() * 0.95);
+    }
+
   }
 }

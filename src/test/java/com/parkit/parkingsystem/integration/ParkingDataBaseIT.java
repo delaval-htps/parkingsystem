@@ -99,8 +99,7 @@ public class ParkingDataBaseIT {
     // GIVEN:change testParkingACar() by parkingService.processIncomingVehicle to not depends of the
     // first IT and respect "FIRST"
 
-    ParkingService parkingService =
-        new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+    ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
 
     parkingService.processIncomingVehicle();
 
