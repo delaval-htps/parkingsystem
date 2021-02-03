@@ -50,7 +50,7 @@ public class FareCalculatorServiceTest {
   class CalculateFar {
 
     @Test
-    public void calculateFareCar() {
+    void calculateFareCar() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
@@ -68,7 +68,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareBike() {
+    void calculateFareBike() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
@@ -87,7 +87,7 @@ public class FareCalculatorServiceTest {
 
 
     @Test
-    public void calculateFareUnkownType() {
+    void calculateFareUnkownType() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
@@ -105,7 +105,7 @@ public class FareCalculatorServiceTest {
 
 
     @Test
-    public void calculateFareBikeWithFutureInTime() {
+    void calculateFareBikeWithFutureInTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() + (60 * 60 * 1000));
@@ -123,7 +123,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareBikeWithLessThanOneHourParkingTime() {
+    void calculateFareBikeWithLessThanOneHourParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       // 45 minutes parking time should give 3/4th
@@ -143,7 +143,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareCarWithLessThanOneHourParkingTime() {
+    void calculateFareCarWithLessThanOneHourParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       // 45 minutes parking time should give 3/4th
@@ -163,7 +163,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareCarWithMoreThanADayParkingTime() {
+    void calculateFareCarWithMoreThanADayParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       // 24 hours parking time should give 24 *
@@ -204,7 +204,7 @@ public class FareCalculatorServiceTest {
   class CalculateFarUnder30Min {
 
     @Test
-    public void calculateFareCarWithTwentyNineMinutesParkingTime() {
+    void calculateFareCarWithTwentyNineMinutesParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (29 * 60 * 1000));
@@ -222,7 +222,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareBikeWithZeroMinuteParkingTime() {
+    void calculateFareBikeWithZeroMinuteParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis());
@@ -240,7 +240,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareCarWithThirtyMinutesParkingTime() {
+    void calculateFareCarWithThirtyMinutesParkingTime() {
       // ARRANGE
       Date inTime = new Date();
 
@@ -262,7 +262,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareBikeWithThirtyMinutesParkingTime() {
+    void calculateFareBikeWithThirtyMinutesParkingTime() {
       // ARRANGE
       Date inTime = new Date();
 
@@ -284,7 +284,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareUnkownTypeWithTwentyNineMinutesParkingTime() {
+    void calculateFareUnkownTypeWithTwentyNineMinutesParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (29 * 60 * 1000));
@@ -301,7 +301,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFareUnkownTypeWithThirtyMinutesParkingTime() {
+    void calculateFareUnkownTypeWithThirtyMinutesParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (30 * 60 * 1000));
@@ -336,7 +336,7 @@ public class FareCalculatorServiceTest {
   @DisplayName("calculate far for recurring users")
   class CalculateFarWithFivePourcentsDiscount {
     @Test
-    public void calculateFarRecurringCarOneHourParkingTime() {
+    void calculateFarRecurringCarOneHourParkingTime() {
       //ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
@@ -357,7 +357,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFarRecurringBikeOneHourParkingTime() {
+    void calculateFarRecurringBikeOneHourParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
@@ -378,7 +378,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFarCarFirstPArkingTime() {
+    void calculateFarCarFirstPArkingTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
@@ -399,7 +399,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFarBikeFirstPArkingTime() {
+    void calculateFarBikeFirstPArkingTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
@@ -421,7 +421,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFarUnknowTypeUserFirstPArkingTime() {
+    void calculateFarUnknowTypeUserFirstPArkingTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
@@ -441,7 +441,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    public void calculateFarUnknowTypeUserRecurring() {
+    void calculateFarUnknowTypeUserRecurring() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
