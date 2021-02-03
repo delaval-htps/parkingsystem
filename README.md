@@ -22,7 +22,12 @@ This app uses Java to run and stores the data in Mysql DB.
     * update of SQL Queries in DbConstants to check if suer is recurring and to get the good ticket for the vehicle 
     * implementation of code in FareCalculateService to check UTs: OK
 
-* <ins>update javadoc</ins>
+
+* update Javadoc
+
+**V0.1.2**:
+
+* update of pom.xml to configure the output directory of Jacoco's report correctly for a Sonarcloud's use.
 
 ## Getting Started
 
@@ -75,8 +80,13 @@ To run the tests from maven, go to the folder that contains the pom.xml file and
 
 ### Jacoco reports
 
+#### In V0.1.1:
 After run the tests with the CLI , the reports of Jacoco are in :
 
 * For unit tests : **target/site/jacoco-unit-test-coverage-report/index.html**
 * For integration tests: **target/site/jacoco-integration-test-coverage-report/index.html**
 
+#### In V0.1.2:
+There is only one report of jacoco and is located in **target/site/jacoco/index.html**
+
+This modification was implemented to be sure to have report of coverage in sonarcloud, because in V0.1.1 sonarcloud didn't find the reports of Jacoco even if it was correctly configured 
