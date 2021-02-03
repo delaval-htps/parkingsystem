@@ -245,7 +245,7 @@ public class FareCalculatorServiceTest {
       Date inTime = new Date();
 
       // thirtyOneMinutesDouble is equal to 31 minutes in hour in type double
-      inTime.setTime(System.currentTimeMillis() - ((30 * 60 * 1000) + 1000));
+      inTime.setTime(System.currentTimeMillis() - (30 * 60 * 1000));
       final double thirtyMinutesDouble = (double) 30 / 60;
 
       Date outTime = new Date();
@@ -267,7 +267,7 @@ public class FareCalculatorServiceTest {
       Date inTime = new Date();
 
       // thirtyOneMinutesDouble is equal to 31 minutes in hour in type double
-      inTime.setTime(System.currentTimeMillis() - ((30 * 60 * 1000) + 1000));
+      inTime.setTime(System.currentTimeMillis() - (30 * 60 * 1000));
       final double thirtyMinutesDouble = (double) 30 / 60;
 
       Date outTime = new Date();
