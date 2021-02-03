@@ -29,6 +29,11 @@ This app uses Java to run and stores the data in Mysql DB.
 
 * update of pom.xml to configure the output directory of Jacoco's report correctly for a Sonarcloud's use.
 
+**V0.1.3**:
+
+* update of classes to correct bugs in relation to report of sonarcloud
+
+ 
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -69,7 +74,7 @@ Finally, you will be ready to import the code into an IDE of your choice and run
 
 ### Testing
 
-The app has unit tests and integration tests written. More of these need to be added and in some places that can be seen mentioend as `TODO` comments. The existing tests need to be triggered from maven-surefire plugin while we try to generate the final executable jar file.
+The app has unit tests and integration tests written. More of these need to be added and in some places that can be seen mentioned as `TODO` comments. The existing tests need to be triggered from maven-surefire plugin while we try to generate the final executable jar file.
 
 To run the tests from maven, go to the folder that contains the pom.xml file and execute the below command.
 
