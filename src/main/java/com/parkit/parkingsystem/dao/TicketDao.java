@@ -147,7 +147,7 @@ public class TicketDao {
       }
 
     } catch (Exception e) {
-      e.printStackTrace();
+      logger.error("Error to verify if it's a recurring user", e);
     } finally {
       dataBaseConfig.closeConnection(con);
       dataBaseConfig.closePreparedStatement(ps);
