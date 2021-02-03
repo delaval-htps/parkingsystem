@@ -42,7 +42,7 @@ public class FareCalculatorService {
     // else we loose the decimal numbers)
 
     double durationNumberHours =
-        (duration >= (0.5 * 60 * 60 * 1000)) ? (double) (duration / (1000 * 60)) / 60 : 0;
+        (duration >= (0.5 * 60 * 60 * 1000)) ? (duration / (1000f * 60)) / 60 : 0;
 
     switch (ticket.getParkingSpot().getParkingType()) {
       case CAR: {

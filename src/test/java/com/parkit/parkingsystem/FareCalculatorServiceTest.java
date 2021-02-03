@@ -246,7 +246,7 @@ public class FareCalculatorServiceTest {
 
       // thirtyOneMinutesDouble is equal to 31 minutes in hour in type double
       inTime.setTime(System.currentTimeMillis() - (30 * 60 * 1000));
-      final double thirtyMinutesDouble = (double) 30 / 60;
+      final double thirtyMinutesDouble = 30f / 60;
 
       Date outTime = new Date();
       ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
@@ -268,7 +268,7 @@ public class FareCalculatorServiceTest {
 
       // thirtyOneMinutesDouble is equal to 31 minutes in hour in type double
       inTime.setTime(System.currentTimeMillis() - (30 * 60 * 1000));
-      final double thirtyMinutesDouble = (double) 30 / 60;
+      final double thirtyMinutesDouble = 30f / 60;
 
       Date outTime = new Date();
       ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
