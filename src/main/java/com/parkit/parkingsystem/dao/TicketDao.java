@@ -32,10 +32,11 @@ public class TicketDao {
    */
   public boolean saveTicket(Ticket ticket) {
     Connection con = null;
+    PreparedStatement ps = null;
     try {
       con = dataBaseConfig.getConnection();
       // save the ticket with its values
-      PreparedStatement ps = con.prepareStatement(DbConstants.SAVE_TICKET);
+      ps = con.prepareStatement(DbConstants.SAVE_TICKET);
       // ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
       // ps.setInt(1,ticket.getId());
       ps.setInt(1, ticket.getParkingSpot().getId());
@@ -49,6 +50,7 @@ public class TicketDao {
       logger.error("Error fetching next available slot", ex);
     } finally {
       dataBaseConfig.closeConnection(con);
+      dataBaseConfig.closePreparedStatement(ps);
     }
     return false;
   }
@@ -61,21 +63,14 @@ public class TicketDao {
    */
   public Ticket getTicket(String vehicleRegNumber) {
     Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
     Ticket ticket = null;
-    boolean isRecurring = false;
+
     try {
       con = dataBaseConfig.getConnection();
-      PreparedStatement ps = null;
-      ResultSet rs = null;
 
-      // First: verification of type of user : recurring or not ?
-      ps = con.prepareStatement(DbConstants.VERIFY_RECURRING_USER);
-      ps.setString(1, vehicleRegNumber);
-      rs = ps.executeQuery();
-      if (rs.next()) {
-        isRecurring = (rs.getInt(1) == 0) ? false : true;
-      }
-      // Second: get values of the ticket
+      // get values of the ticket
       ps = con.prepareStatement(DbConstants.GET_TICKET);
       // ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
       ps.setString(1, vehicleRegNumber);
@@ -90,14 +85,15 @@ public class TicketDao {
         ticket.setPrice(rs.getDouble(3));
         ticket.setInTime(rs.getTimestamp(4));
         ticket.setOutTime(rs.getTimestamp(5));
-        ticket.setIsRecurringUser(isRecurring);
+        ticket.setIsRecurringUser(verifyRecurringUserTicket(vehicleRegNumber));
       }
-      dataBaseConfig.closeResultSet(rs);
-      dataBaseConfig.closePreparedStatement(ps);
+
     } catch (Exception ex) {
       logger.error("Error fetching next available slot", ex);
     } finally {
       dataBaseConfig.closeConnection(con);
+      dataBaseConfig.closeResultSet(rs);
+      dataBaseConfig.closePreparedStatement(ps);
     }
     return ticket;
   }
@@ -110,9 +106,10 @@ public class TicketDao {
    */
   public boolean updateTicket(Ticket ticket) {
     Connection con = null;
+    PreparedStatement ps = null;
     try {
       con = dataBaseConfig.getConnection();
-      PreparedStatement ps = con.prepareStatement(DbConstants.UPDATE_TICKET);
+      ps = con.prepareStatement(DbConstants.UPDATE_TICKET);
       ps.setDouble(1, ticket.getPrice());
       ps.setTimestamp(2, new Timestamp(ticket.getOutTime().getTime()));
       ps.setInt(3, ticket.getId());
@@ -122,6 +119,39 @@ public class TicketDao {
       logger.error("Error saving ticket info", ex);
     } finally {
       dataBaseConfig.closeConnection(con);
+      dataBaseConfig.closePreparedStatement(ps);
+    }
+    return false;
+  }
+
+  /**
+   * method to verify in DB table ticket if the user is recurring or not.
+   * 
+   * @param vehicleRegNumber the number plate of the vehicle
+   * @return boolean true or false
+   */
+  public boolean verifyRecurringUserTicket(String vehicleRegNumber) {
+    Connection con = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    
+    try {
+      con = dataBaseConfig.getConnection();
+
+      // First: verification of type of user : recurring or not ?
+      ps = con.prepareStatement(DbConstants.VERIFY_RECURRING_USER);
+      ps.setString(1, vehicleRegNumber);
+      rs = ps.executeQuery();
+      if (rs.next()) {
+        return (rs.getInt(1) == 0) ? false : true;
+      }
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    } finally {
+      dataBaseConfig.closeConnection(con);
+      dataBaseConfig.closePreparedStatement(ps);
+      dataBaseConfig.closeResultSet(rs);
     }
     return false;
   }
