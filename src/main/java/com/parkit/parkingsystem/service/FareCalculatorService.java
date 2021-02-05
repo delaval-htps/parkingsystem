@@ -36,8 +36,6 @@ public class FareCalculatorService {
 
     Long duration = outHour - inHour;
 
-
-
     // calculation of the duration in a number of hours in type double (need to cast in double
     // else we loose the decimal numbers)
 
@@ -46,19 +44,32 @@ public class FareCalculatorService {
 
     switch (ticket.getParkingSpot().getParkingType()) {
       case CAR: {
-        ticket.setPrice(durationNumberHours * Fare.CAR_RATE_PER_HOUR);
+        ticket.setPrice(
+            roundedPrice(durationNumberHours * Fare.CAR_RATE_PER_HOUR));
         break;
       }
       case BIKE: {
-        ticket.setPrice(durationNumberHours * Fare.BIKE_RATE_PER_HOUR);
+        ticket.setPrice(
+            roundedPrice(durationNumberHours * Fare.BIKE_RATE_PER_HOUR));
         break;
       }
       default:
         throw new IllegalArgumentException("Unkown Parking Type");
     }
+
     if (ticket.getIsRecurringUser()) {
-      ticket.setPrice(ticket.getPrice() * 0.95);
+      ticket.setPrice(roundedPrice(ticket.getPrice() * 0.95));
     }
 
+  }
+
+  /**
+   * method to round a price of type double with 2 numbers after comma.
+   * 
+   * @param price a price of type double
+   * @return the price rounded with 2 numbers after the comma
+   */
+  private double roundedPrice(double price) {
+    return (double) Math.round(price * 100) / 100;
   }
 }
