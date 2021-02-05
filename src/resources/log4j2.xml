@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration>
+  <Appenders>
+    <Console name="STDOUT" target="SYSTEM_OUT">
+    <PatternLayout>
+    <ScriptPatternSelector defaultPattern="%highlight{%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n}{ERROR=red,TRACE=blue}">
+                    <Script name="LevelSelector" language="javascript"><![CDATA[
+                        result= null;
+                        if (logEvent.getLevel() == org.apache.logging.log4j.Level.INFO) {
+                            result="INFO";
+                        }
+                      
+                        ]]>
+                    </Script>
+                    <PatternMatch key="INFO" pattern="%msg%n"/>
+                     
+                </ScriptPatternSelector>
+    </PatternLayout>
+<!--       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/> -->
+    </Console>
+  </Appenders>
+  <Loggers >
+    <Root level="DEBUG">
+      <AppenderRef ref="STDOUT"/>
+    </Root>
+  </Loggers>
+</Configuration>
