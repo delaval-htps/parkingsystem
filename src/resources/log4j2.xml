@@ -4,17 +4,20 @@
   <Appenders>
     <Console name="STDOUT" target="SYSTEM_OUT">
     <PatternLayout>
-    <ScriptPatternSelector defaultPattern="%highlight{%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n}{ERROR=red,TRACE=blue}">
+    <ScriptPatternSelector defaultPattern="%highlight{%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n}{ERROR=red}">
                     <Script name="LevelSelector" language="javascript"><![CDATA[
                         result= null;
                         if (logEvent.getLevel() == org.apache.logging.log4j.Level.INFO) {
                             result="INFO";
                         }
+                        if (logEvent.getLevel() == org.apache.logging.log4j.Level.WARN) {
+                            result="WARN";
+                        }
                       
                         ]]>
                     </Script>
                     <PatternMatch key="INFO" pattern="%msg%n"/>
-                     
+                    <PatternMatch key="WARN" pattern="%highlight{%d{HH:mm:ss.SSS} [%t] %logger{36} - %msg%n}{WARN=cyan}"/> 
                 </ScriptPatternSelector>
     </PatternLayout>
 <!--       <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/> -->
