@@ -45,12 +45,12 @@ public class FareCalculatorService {
     switch (ticket.getParkingSpot().getParkingType()) {
       case CAR: {
         ticket.setPrice(
-            roundedPrice(durationNumberHours * Fare.CAR_RATE_PER_HOUR));
+            Fare.roundedFare(durationNumberHours * Fare.CAR_RATE_PER_HOUR));
         break;
       }
       case BIKE: {
         ticket.setPrice(
-            roundedPrice(durationNumberHours * Fare.BIKE_RATE_PER_HOUR));
+            Fare.roundedFare(durationNumberHours * Fare.BIKE_RATE_PER_HOUR));
         break;
       }
       default:
@@ -58,18 +58,10 @@ public class FareCalculatorService {
     }
 
     if (ticket.getIsRecurringUser()) {
-      ticket.setPrice(roundedPrice(ticket.getPrice() * 0.95));
+      ticket.setPrice(Fare.roundedFare(ticket.getPrice() * 0.95));
     }
 
   }
 
-  /**
-   * method to round a price of type double with 2 numbers after comma.
-   * 
-   * @param price a price of type double
-   * @return the price rounded with 2 numbers after the comma
-   */
-  private double roundedPrice(double price) {
-    return (double) Math.round(price * 100) / 100;
-  }
+
 }
