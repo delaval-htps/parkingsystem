@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration>
+
+  <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+    <layout class="ch.qos.logback.classic.PatternLayout">
+      # Pattern of log message for console appender
+      <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n</Pattern>
+    </layout>
+  </appender>
+ 
+  <Root level="DEBUG">
+    <AppenderRef ref="STDOUT"/>
+  </Root>
+ 
+</Configuration>

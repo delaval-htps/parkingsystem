@@ -33,7 +33,7 @@
 <!-- ============================================================ -->
 	<dependencies>
 
-		<!-- ===================== Log4j2 ====================== -->
+		<!-- ===================== Log4j2 for application ====================== -->
 		  <dependency>
 		    <groupId>org.apache.logging.log4j</groupId>
 		    <artifactId>log4j-api</artifactId>
@@ -44,6 +44,19 @@
 		    <artifactId>log4j-core</artifactId>
 		    <version>2.14.0</version>
 		  </dependency>
+		<!-- ===================== Logback for test ====================== -->
+		 <dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>1.1.7</version>
+		</dependency>
+		  <!-- ===================== LogCaptor for test ====================== -->
+		  <dependency>
+		    <groupId>io.github.hakky54</groupId>
+		    <artifactId>logcaptor</artifactId>
+		    <version>2.4.0</version>
+		    <scope>test</scope>
+		</dependency>
 		<!-- ===================== mysql ====================== -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -206,6 +219,9 @@
 			  <version>2.22.2</version>
 		 	  <configuration>
 			    <skipTests>${skipUTs}</skipTests>
+			    <classpathDependencyExcludes>
+					<classpathDependencyExclude>org.apache.logging.log4j:log4j-slf4j-impl</classpathDependencyExclude>	    
+			    </classpathDependencyExcludes>
 			  </configuration> 
 			</plugin>
 			<!-- ================ failesafe =============== -->
@@ -216,6 +232,9 @@
  			  <configuration>
 			    <skipTests>${skipTests}</skipTests>
 			    <skipITs>${skipITs}</skipITs>
+			     <classpathDependencyExcludes>
+			    		<classpathDependencyExclude>org.apache.logging.log4j:log4j-slf4j-impl</classpathDependencyExclude>	    >
+			    </classpathDependencyExcludes>
 			  </configuration>
 			  <executions>
 			    <execution>
