@@ -1,6 +1,7 @@
 package com.parkit.parkingsystem.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.never;
@@ -41,8 +42,13 @@ public class ParkingServiceTest {
   private static Ticket ticket;
   private LogCaptor logCaptor;
 
-  private static String expectedErrorMessage =
+  private static String expectedErrorMessageUpdateTicket =
       "Unable to update ticket information. Error occurred";
+  private static String expectedErrorMessageInputReaderUtil =
+      "Error parsing user input for type of vehicle";
+  private static String expectedErrorMessageFullPark =
+      "Error fetching parking number from DB. Parking slots might be full";
+  private static String expectedErrorMessageTicketDao = "Unable to process exiting vehicle";
   private static String expectedInfoMessage =
       "Welcome back! As a recurring user of our parking lot, you'll benefit from a 5% discount!";
 
@@ -54,10 +60,20 @@ public class ParkingServiceTest {
   private static TicketDao ticketDAO;
 
 
+
+  /**
+   * class tests for method processingExitingVehicle.
+   * 
+   * @author delaval
+   *
+   */
+
   @Nested
   @DisplayName("tests for process exiting vehicle")
   public class ProcessExitingVehicleTest {
-
+    /**
+     * Setup initialize for all test in the class.
+     */
     @BeforeEach
     public void setUpTest() {
       try {
@@ -75,6 +91,18 @@ public class ParkingServiceTest {
 
     }
 
+    /**
+     * test for a Exiting Car. When ParkingService.processExitingVehicle() is call Then
+     * <ul>
+     * <li>verify ParkingSpotDao.updateParking() and TicketDao.updateTicket() are called</li>
+     * <li>assert That
+     * <ul>
+     * <li>ParkingSpot.isavailable is True</li>
+     * <li>ticket.outTime is not null</li>
+     * <li>ticket.price is correct</li>
+     * </ul>
+     * </ul>
+     */
     @Test
     public void processExitingCarTest() {
       // ARRANGE
@@ -101,6 +129,18 @@ public class ParkingServiceTest {
       assertThat(ticketCaptor.getValue().getPrice()).isEqualTo(Fare.CAR_RATE_PER_HOUR);
     }
 
+    /**
+     * test for a Exiting Bike. When ParkingService.processExitingVehicle() is call Then
+     * <ul>
+     * <li>verify ParkingSpotDao.updateParking() and TicketDao.updateTicket() are called</li>
+     * <li>assert That
+     * <ul>
+     * <li>ParkingSpot.isavailable is True</li>
+     * <li>ticket.outTime is not null</li>
+     * <li>ticket.price is correct</li>
+     * </ul>
+     * </ul>
+     */
     @Test
     public void processExitingBikeTest() {
       // ARRANGE
@@ -128,6 +168,13 @@ public class ParkingServiceTest {
 
     }
 
+    /**
+     * test for a Exiting Vehicle. When ticket can't be updated Then
+     * <ul>
+     * <li>verify ParkingSpotDao.updateParking() and TicketDao.updateTicket() are called</li>
+     * <li>assert That the exact logger.error is print in console out
+     * </ul>
+     */
     @Test
     public void processExitingVehicle_WhenUnupdatedTicket() {
       // ARRANGE
@@ -147,9 +194,49 @@ public class ParkingServiceTest {
       verify(parkingSpotDAO, never()).updateParking(any(ParkingSpot.class));
       verify(ticketDAO, times(1)).updateTicket(any(Ticket.class));
 
-      assertThat(logCaptor.getErrorLogs()).containsExactly(expectedErrorMessage);
+      assertThat(logCaptor.getErrorLogs()).containsExactly(expectedErrorMessageUpdateTicket);
     }
 
+    /**
+     * test for a Exiting Vehicle. When ticket can't be updated Then
+     * <ul>
+     * <li>verify ParkingSpotDao.updateParking() and TicketDao.updateTicket() are called</li>
+     * <li>assert That the exact logger.error is print in console out
+     * </ul>
+     */
+    @Test
+    public void processExitingVehicle_WhenTicketNotInDB() {
+      // ARRANGE
+      parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+      when(ticketDAO.getTicket("ABCDEF")).thenReturn(null);
+
+      logCaptor = LogCaptor.forClass(ParkingService.class);
+      logCaptor.getErrorLogs();
+
+      // ACT
+      parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+      parkingService.processExitingVehicle();
+
+      // ASSERT
+      verify(parkingSpotDAO, never()).updateParking(any(ParkingSpot.class));
+      verify(ticketDAO, never()).updateTicket(any(Ticket.class));
+
+      assertThat(logCaptor.getErrorLogs()).containsExactly(expectedErrorMessageTicketDao);
+    }
+
+    /**
+     * test for a Exiting Car. When it's a recurring user Then
+     * <ul>
+     * <li>verify ParkingSpotDao.updateParking() and TicketDao.updateTicket() are called</li>
+     * <li>assert That
+     * <ul>
+     * <li>ParkingSpot.isavailable is True</li>
+     * <li>ticket.outTime is not null</li>
+     * <li>ticket.price is correct</li>
+     * <li>logger.info is correctly print in console out</li>
+     * </ul>
+     * </ul>
+     */
     @Test
     public void processExitingCar_WhenRecurringUserTest() {
       // ARRANGE
@@ -182,6 +269,19 @@ public class ParkingServiceTest {
       assertThat(logCaptor.getInfoLogs()).containsAnyOf(expectedInfoMessage);
     }
 
+    /**
+     * test for a Exiting Bike. When it's a recurring user Then
+     * <ul>
+     * <li>verify ParkingSpotDao.updateParking() and TicketDao.updateTicket() are called</li>
+     * <li>assert That
+     * <ul>
+     * <li>ParkingSpot.isavailable is True</li>
+     * <li>ticket.outTime is not null</li>
+     * <li>ticket.price is correct</li>
+     * <li>logger.info is correctly print in console out</li>
+     * </ul>
+     * </ul>
+     */
     @Test
     public void processExitingBike_WhenRecurringUserTest() {
       // ARRANGE
@@ -214,5 +314,120 @@ public class ParkingServiceTest {
       assertThat(logCaptor.getInfoLogs()).containsAnyOf(expectedInfoMessage);
     }
   }
+  /**
+   * class test to verify if the given next parking spot available to park a vehicle is correct.
+   * 
+   * @author delaval
+   *
+   */
 
+  @Nested
+  @DisplayName("tests to get next number of parkingSpot")
+  public class GetNextNumberParkingSpotAvailabe {
+    /**
+     * test to verify if the correct parking spot available is given for a entering car.
+     */
+    @Test
+    public void getNextNumberParkingSpotAvailableForCar() {
+      // ARRANGE
+
+      when(inputReaderUtil.readSelection()).thenReturn(1);
+      when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(3);
+
+      // ACT
+      ParkingService parkingService =
+          new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+      parkingSpot = parkingService.getNextParkingNumberIfAvailable();
+
+      // ASSERT
+      assertThat(parkingSpot.getParkingType()).isEqualTo(ParkingType.CAR);
+      assertThat(parkingSpot.getId()).isGreaterThan(0);
+      assertThat(parkingSpot.isAvailable()).isEqualTo(true);
+    }
+
+    /**
+     * test to verify if the correct parking spot available is given for a entering Bike.
+     */
+    @Test
+    public void getNextNumberParkingSpotAvailableForBike() {
+      // ARRANGE
+
+      when(inputReaderUtil.readSelection()).thenReturn(2);
+      when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(3);
+
+      // ACT
+      ParkingService parkingService =
+          new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+      parkingSpot = parkingService.getNextParkingNumberIfAvailable();
+
+      // ASSERT
+      assertThat(parkingSpot.getParkingType()).isEqualTo(ParkingType.BIKE);
+      assertThat(parkingSpot.getId()).isGreaterThan(0);
+      assertThat(parkingSpot.isAvailable()).isEqualTo(true);
+    }
+
+    /**
+     * test to verify when unknown type of vehicle try to have a parking spot.
+     */
+    @Test
+    public void getNextNumberParkingSpotAvailableForUnkowType() {
+      // ARRANGE
+      when(inputReaderUtil.readSelection()).thenReturn(-1);
+
+      logCaptor = LogCaptor.forClass(ParkingService.class);
+      logCaptor.getErrorLogs();
+
+      // ACT
+      ParkingService parkingService =
+          new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+      parkingService.getNextParkingNumberIfAvailable();
+
+      // ASSERT
+      assertThat(logCaptor.getErrorLogs()).containsAnyOf(expectedErrorMessageInputReaderUtil);
+    }
+
+    /**
+     * test to verify when a car try to have a parking spot and the park is full.
+     */
+    @Test
+    public void getNextNumberCarParkingSpotAvailable_WhenFullPark() {
+      // ARRANGE
+      when(inputReaderUtil.readSelection()).thenReturn(1);
+      when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(-1);
+
+      // ACT
+      ParkingService parkingService =
+          new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+      parkingService.getNextParkingNumberIfAvailable();
+
+      // ASSERT
+
+      assertThatThrownBy(() -> {
+        throw new Exception(expectedErrorMessageFullPark);
+      }).isInstanceOf(Exception.class);
+
+    }
+
+    /**
+     * test to verify when a bike try to have a parking spot and the park is full.
+     */
+    @Test
+    public void getNextNumberBikeParkingSpotAvailable_WhenFullPark() {
+      // ARRANGE
+      when(inputReaderUtil.readSelection()).thenReturn(2);
+      when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(-1);
+
+      // ACT
+      ParkingService parkingService =
+          new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+      parkingService.getNextParkingNumberIfAvailable();
+
+      // ASSERT
+
+      assertThatThrownBy(() -> {
+        throw new Exception(expectedErrorMessageFullPark);
+      }).isInstanceOf(Exception.class);
+
+    }
+  }
 }
