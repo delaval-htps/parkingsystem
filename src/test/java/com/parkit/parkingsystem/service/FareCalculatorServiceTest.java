@@ -1,7 +1,7 @@
 package com.parkit.parkingsystem.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-// import static junit
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -99,9 +99,10 @@ public class FareCalculatorServiceTest {
       ticket.setParkingSpot(parkingSpot);
 
       // ASSERT
-      assertThrows(NullPointerException.class, () -> fareCalculatorService.calculateFare(ticket));
-    }
+      assertThatThrownBy(() -> fareCalculatorService.calculateFare(ticket))
+          .isInstanceOf(NullPointerException.class);
 
+    }
 
     @Test
     void calculateFareBikeWithFutureInTime() {
@@ -182,6 +183,52 @@ public class FareCalculatorServiceTest {
       // ASSERT
       assertEquals(ticket.getPrice(), (24 * Fare.CAR_RATE_PER_HOUR));
     }
+
+    @Test
+    void calculateFareCarWithOutTimeLessThanInTime() {
+      // ARRANGE
+      Date inTime = new Date();
+
+
+      // parking fare per hour
+      Date outTime = new Date();
+      outTime.setTime(System.currentTimeMillis() - (24 * 60 * 60 * 1000));
+      ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+
+
+      // ACT ...
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+
+      // ASSERT
+      assertThatThrownBy(() -> fareCalculatorService.calculateFare(ticket))
+          .isInstanceOf(IllegalArgumentException.class);
+    }
+
+    @Test
+    void calculateFareCarWithNullOutTime() {
+      // ARRANGE
+      Date inTime = new Date();
+
+
+      // parking fare per hour
+
+      ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
+
+
+      // ACT ...
+      ticket.setInTime(inTime);
+      ticket.setOutTime(null);
+      ticket.setParkingSpot(parkingSpot);
+
+      // ASSERT
+      assertThatThrownBy(() -> fareCalculatorService.calculateFare(ticket))
+          .isInstanceOf(NullPointerException.class);
+    }
+
+
+
   }
 
   /**
