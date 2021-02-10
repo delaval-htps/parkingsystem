@@ -39,6 +39,9 @@ public class InteractiveShellTest {
     logCaptor.clearLogs();
   }
 
+  /**
+   * test to verify the behavior of menu with reading of unsupported answer.
+   */
   @Test
 
   void loadMenuUnsupportedOptionTest() {
@@ -75,6 +78,9 @@ public class InteractiveShellTest {
     assertThat(logCaptor.getWarnLogs()).containsExactly("App initialized!!!");
   }
 
+  /**
+   * test to verify the behavior of menu when exiting system.
+   */
   @Test
 
   void loadMenuExitSystemTest() {
@@ -104,6 +110,9 @@ public class InteractiveShellTest {
 
   }
 
+  /**
+   * test to verify the behavior of menu when a vehicle is incoming.
+   */
   @Test
   void loadMenuProcessIncomingVehicleTest() {
     // ARRANGE
@@ -138,6 +147,9 @@ public class InteractiveShellTest {
 
   }
 
+  /**
+   * test to verify menu when a vehicle is exiting.
+   */
   @Test
   void loadMenuProcessExitingVehicleTest() {
     // ARRANGE
