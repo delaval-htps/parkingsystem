@@ -52,4 +52,21 @@ public class InputReaderUtil {
       throw e;
     }
   }
+
+  /**
+   * method to give another scan for test to this class.
+   * 
+   * @param scan the scanner to read from console
+   */
+  public static void setScan(Scanner scan) {
+    InputReaderUtil.scan = scan;
+  }
+
+  /**
+   * method to restore the scanner with System.in after tests
+   */
+  public static void restoreScan() {
+    System.setIn(System.in);
+  }
+
 }
