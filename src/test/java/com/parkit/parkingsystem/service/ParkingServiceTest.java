@@ -67,10 +67,18 @@ public class ParkingServiceTest {
   @Mock
   private static TicketDao ticketDAO;
 
-
+  /**
+   * class test to check the correct process incoming vehicle.
+   * 
+   * @author delaval
+   *
+   */
   @Nested
   @DisplayName("test for process incoming vehicle")
   public class ProcessIncomingVehiculeTest {
+    /**
+     * test for a incoming Car.
+     */
     @Test
     public void processIncomingCarTest() {
       // ARRANGE
@@ -116,6 +124,9 @@ public class ParkingServiceTest {
                   + " is:" + ticketCaptor.getValue().getInTime() + "/n");
     }
 
+    /**
+     * test for incoming Bike.
+     */
     @Test
     public void processIncomingBikeTest() {
       // ARRANGE
@@ -161,6 +172,9 @@ public class ParkingServiceTest {
               + ticketCaptor.getValue().getInTime() + "/n");
     }
 
+    /**
+     * test for incoming unkown vehicle.
+     */
     @Test
     public void processIncomingUnknownVehicleTest() {
       // ARRANGE
@@ -181,6 +195,9 @@ public class ParkingServiceTest {
           .contains(expectedErrorMessageInputReaderUtil);
     }
 
+    /**
+     * test for incoming vehicle when park is full.
+     */
     @Test
     public void processIncomingWhenParkFulledTest() {
       // ARRANGE
@@ -206,7 +223,10 @@ public class ParkingServiceTest {
         throw new Exception(expectedErrorMessageFullPark);
       }).isInstanceOf(Exception.class);
     }
-    
+
+    /**
+     * test for incoming vehicle with no parking spot= null.
+     */
     @Test
     public void processIncomingWhenNullParkingSpotTest() {
       // ARRANGE
@@ -230,6 +250,9 @@ public class ParkingServiceTest {
 
     }
 
+    /**
+     * test for incoming car with a given parking spot negative.
+     */
     @Test
     public void processIncomingWhenNegativeParkingSpotTest() {
       // ARRANGE
