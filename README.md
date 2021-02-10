@@ -33,6 +33,11 @@ This app uses Java to run and stores the data in Mysql DB.
 
 * update of classes to correct bugs in relation to report of sonarcloud
 
+**V0.1.4**:
+
+* update pom.xml to integrate correctly log4j2, logBack, logCaptor...
+* update for FareCalculator to round the price of the ticket without code's regression
+* add UTs for ParkingService,FareCalculatorService and InteractiveShell to rise the branch's coverage 
  
 ## Getting Started
 
