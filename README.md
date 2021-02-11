@@ -42,7 +42,7 @@ This app uses Java to run and stores the data in Mysql DB.
 **V0.1.5**:
 
 * fix all bugs in the project according to Sonarcloud
-* the coverage pass to 85% to 53% (need to rise the coverage in the next release...)
+* the coverage pass to 85% to 53% because of update especially in com.parkit.parkingsystem.dao  (need to rise the coverage in the next release...)
 * update of javadoc
  
 ## Getting Started
