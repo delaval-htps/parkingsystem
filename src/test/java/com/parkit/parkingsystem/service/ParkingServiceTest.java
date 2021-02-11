@@ -105,7 +105,8 @@ public class ParkingServiceTest {
       verify(parkingSpotDAO, times(1)).updateParking(parkingSpotCaptor.capture());
       verify(ticketDAO, times(1)).saveTicket(ticketCaptor.capture());
 
-      assertThat(ticketCaptor.getValue().getId()).isNotNull();
+      // verify that ticket.getId is not null is non compliant because a primitive is never null and
+      // id in table is declare not null
       assertThat(ticketCaptor.getValue().getOutTime()).isNull();
       assertThat(ticketCaptor.getValue().getPrice()).isEqualTo(0);
       assertThat(ticketCaptor.getValue().getInTime()).isNotNull();
@@ -153,7 +154,8 @@ public class ParkingServiceTest {
       verify(parkingSpotDAO, times(1)).updateParking(parkingSpotCaptor.capture());
       verify(ticketDAO, times(1)).saveTicket(ticketCaptor.capture());
 
-      assertThat(ticketCaptor.getValue().getId()).isNotNull();
+      // verify that ticket.getId is not null is non compliant because a primitive is never null and
+      // id in table is declare not null
       assertThat(ticketCaptor.getValue().getOutTime()).isNull();
       assertThat(ticketCaptor.getValue().getPrice()).isEqualTo(0);
       assertThat(ticketCaptor.getValue().getInTime()).isNotNull();
