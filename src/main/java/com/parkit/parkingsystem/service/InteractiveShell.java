@@ -14,7 +14,33 @@ import org.apache.logging.log4j.Logger;
  */
 public class InteractiveShell {
 
+  private InteractiveShell() {
+    throw new IllegalStateException("utility class");
+  }
+
   private static final Logger logger = LogManager.getLogger("InteractiveShell");
+
+  private static ParkingService parkingService;
+  private static boolean instantiation = true;
+
+  /**
+   * method to mock easily ParkingService in {@link InteractiveShellTest}.
+   * 
+   * @param parkingService this object will be use in InteractiveShellTest to be mock and verify its
+   *        calls
+   */
+  public static void setParkingService(ParkingService parkingService) {
+    InteractiveShell.parkingService = parkingService;
+    instantiation = false;
+  }
+
+  /**
+   * method to restore the behavior of the class to run correctly. this method is only call in
+   * InteractiveShellTest.java
+   */
+  public static void restoreInteractiveShell() {
+    instantiation = true;
+  }
 
   /**
    * method to set a menu on console according to actions in the park.
@@ -27,7 +53,9 @@ public class InteractiveShell {
     InputReaderUtil inputReaderUtil = new InputReaderUtil();
     ParkingSpotDao parkingSpotDao = new ParkingSpotDao();
     TicketDao ticketDao = new TicketDao();
-    ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDao, ticketDao);
+    if (instantiation) {
+      parkingService = new ParkingService(inputReaderUtil, parkingSpotDao, ticketDao);
+    }
 
     while (continueApp) {
       loadMenu();

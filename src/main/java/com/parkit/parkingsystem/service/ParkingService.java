@@ -6,7 +6,10 @@ import com.parkit.parkingsystem.dao.TicketDao;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.util.InputReaderUtil;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -69,9 +72,13 @@ public class ParkingService {
 
         logger.warn("Generated Ticket and saved in DB");
         logger.info("------------------------------------------------------------------------");
-        logger.info("Please park your vehicle in spot number:" + parkingSpot.getId());
-        logger.info(
-            "Recorded in-time for vehicle number:" + vehicleRegNumber + " is:" + inTime + "/n");
+        logger.info("Please park your vehicle in spot number:{}", parkingSpot.getId());
+
+        // need to format Date in string with pattern because of use
+        Format formatter = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", new Locale("EN", "en"));
+        String inTimeAsString = formatter.format(ticket.getInTime());
+        logger.info("Recorded in-time for vehicle number:{} is:{}", ticket.getVehicleRegNumber(),
+            inTimeAsString);
       }
     } catch (Exception e) {
       logger.error("Unable to process incoming vehicle", e);
@@ -150,9 +157,9 @@ public class ParkingService {
           logger.info("Welcome back! As a recurring user of our parking lot,"
               + " you'll benefit from a 5% discount!");
         }
-        logger.info("Please pay the parking fare:" + ticket.getPrice());
-        logger.info("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber()
-            + " is:" + outTime);
+        logger.info("Please pay the parking fare:{}", ticket.getPrice());
+        logger.info("Recorded out-time for vehicle number: {} is: {}", ticket.getVehicleRegNumber(),
+            outTime);
       } else {
         logger.error("Unable to update ticket information. Error occurred");
       }

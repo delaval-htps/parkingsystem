@@ -19,7 +19,15 @@ import org.apache.logging.log4j.Logger;
 public class ParkingSpotDao {
   private static final Logger logger = LogManager.getLogger("ParkingSpotDAO");
 
-  public DataBaseConfig dataBaseConfig = new DataBaseConfig();
+  private DataBaseConfig dataBaseConfig = new DataBaseConfig();
+
+  public DataBaseConfig getDataBaseConfig() {
+    return dataBaseConfig;
+  }
+
+  public void setDataBaseConfig(DataBaseConfig dataBaseConfig) {
+    this.dataBaseConfig = dataBaseConfig;
+  }
 
   /**
    * return the available slot in the park for a type of vehicle.
