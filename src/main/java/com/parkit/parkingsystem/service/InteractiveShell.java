@@ -14,6 +14,10 @@ import org.apache.logging.log4j.Logger;
  */
 public class InteractiveShell {
 
+  private InteractiveShell() {
+    throw new IllegalStateException("utility class");
+  }
+
   private static final Logger logger = LogManager.getLogger("InteractiveShell");
 
   private static ParkingService parkingService;
