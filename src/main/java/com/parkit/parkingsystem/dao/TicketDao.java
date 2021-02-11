@@ -22,7 +22,15 @@ public class TicketDao {
 
   private static final Logger logger = LogManager.getLogger("TicketDAO");
 
-  public DataBaseConfig dataBaseConfig = new DataBaseConfig();
+  private DataBaseConfig dataBaseConfig = new DataBaseConfig();
+
+  public DataBaseConfig getDataBaseConfig() {
+    return dataBaseConfig;
+  }
+
+  public void setDataBaseConfig(DataBaseConfig dataBaseConfig) {
+    this.dataBaseConfig = dataBaseConfig;
+  }
 
   /**
    * save the ticket in the database ticket.
@@ -143,7 +151,7 @@ public class TicketDao {
       ps.setString(1, vehicleRegNumber);
       rs = ps.executeQuery();
       if (rs.next()) {
-        return (rs.getInt(1) == 0) ? false : true;
+        return (rs.getInt(1) > 0);
       }
 
     } catch (Exception e) {
