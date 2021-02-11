@@ -1,6 +1,9 @@
 package com.parkit.parkingsystem.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import com.parkit.parkingsystem.util.InputReaderUtil;
 import java.io.File;
@@ -10,12 +13,12 @@ import nl.altindag.log.LogCaptor;
 import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runners.MethodSorters;
+import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-
 
 /**
  * class test to improve {@link InteractiveShell}.
@@ -25,13 +28,22 @@ import org.mockito.junit.jupiter.MockitoExtension;
  */
 @ExtendWith(MockitoExtension.class)
 @FixMethodOrder(MethodSorters.DEFAULT)
-public class InteractiveShellTest {
+class InteractiveShellTest {
 
   private static final LogCaptor logCaptor = LogCaptor.forRoot();
+
+  @Mock
+  private static ParkingService parkingService;
+
+  @BeforeAll
+  static void setUp() {
+    logCaptor.setLogLevelToInfo();
+  }
 
   @AfterAll
   static void restoreApp() {
     InputReaderUtil.restoreScan();
+    InteractiveShell.restoreInteractiveShell();
   }
 
   @AfterEach
@@ -54,8 +66,6 @@ public class InteractiveShellTest {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
-
-    logCaptor.setLogLevelToInfo();
 
     // ACT
     InteractiveShell.loadInterface();
@@ -93,7 +103,6 @@ public class InteractiveShellTest {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
-    logCaptor.setLogLevelToInfo();
 
     //ACT
     InteractiveShell.loadInterface();
@@ -124,24 +133,22 @@ public class InteractiveShellTest {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
-    logCaptor.setLogLevelToInfo();
+
+    doNothing().when(parkingService).processIncomingVehicle();
+    InteractiveShell.setParkingService(parkingService);
 
     // ACT
     InteractiveShell.loadInterface();
 
     // ASSERT
-    assertThat(logCaptor.getInfoLogs()).containsAnyOf("Welcome to Parking System!",
+    verify(parkingService, times(1)).processIncomingVehicle();
+
+    assertThat(logCaptor.getInfoLogs()).containsOnly("Welcome to Parking System!",
         "*********************************************************************",
         "Please select an option. Simply enter the number to choose an action",
         "1 New Vehicle Entering - Allocate Parking Space",
         "2 Vehicle Exiting - Generate Ticket Price", "3 Shutdown System",
         "*********************************************************************",
-        "------------------------------------", "Please select vehicle type from menu", "1 CAR",
-        "2 BIKE", "---------------------------------------------------------------",
-        "Please type the vehicle registration number and press enter key",
-        "------------------------------------------------------------------------",
-        "Please park your vehicle in spot number:",
-        "Recorded in-time for vehicle number:456-az-13 is:",
         "Exiting from the system!");
 
 
@@ -161,20 +168,21 @@ public class InteractiveShellTest {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
-    logCaptor.setLogLevelToInfo();
+
+    doNothing().when(parkingService).processExitingVehicle();
+    InteractiveShell.setParkingService(parkingService);
 
     // ACT
     InteractiveShell.loadInterface();
 
     // ASSERT
-    assertThat(logCaptor.getInfoLogs()).containsAnyOf("Welcome to Parking System!",
+    verify(parkingService, times(1)).processExitingVehicle();
+    assertThat(logCaptor.getInfoLogs()).containsOnly("Welcome to Parking System!",
         "*********************************************************************",
         "Please select an option. Simply enter the number to choose an action",
         "1 New Vehicle Entering - Allocate Parking Space",
         "2 Vehicle Exiting - Generate Ticket Price", "3 Shutdown System",
         "*********************************************************************",
-        "------------------------------------------------------------------------",
-        "Please pay the parking fare:", "Recorded out-time for vehicle number:",
         "Exiting from the system!");
   }
 
