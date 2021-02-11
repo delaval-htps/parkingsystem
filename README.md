@@ -38,6 +38,12 @@ This app uses Java to run and stores the data in Mysql DB.
 * update pom.xml to integrate correctly log4j2, logBack, logCaptor...
 * update for FareCalculator to round the price of the ticket without code's regression
 * add UTs for ParkingService,FareCalculatorService and InteractiveShell to rise the branch's coverage 
+
+**V0.1.5**:
+
+* fix all bugs in the project according to Sonarcloud
+* the coverage pass to 85% to 53% (need to rise the coverage in the next release...)
+* update of javadoc
  
 ## Getting Started
 
