@@ -6,7 +6,10 @@ import com.parkit.parkingsystem.dao.TicketDao;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.util.InputReaderUtil;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -71,8 +74,11 @@ public class ParkingService {
         logger.info("------------------------------------------------------------------------");
         logger.info("Please park your vehicle in spot number:{}", parkingSpot.getId());
 
-        logger.info(
-            "Recorded in-time for vehicle number: {} is: {}", vehicleRegNumber, inTime);
+        // need to format Date in string with pattern because of use
+        Format formatter = new SimpleDateFormat("E MMM d HH:mm:ss z YYYY", new Locale("EN", "en"));
+        String inTimeAsString = formatter.format(ticket.getInTime());
+        logger.info("Recorded in-time for vehicle number:{} is:{}", ticket.getVehicleRegNumber(),
+            inTimeAsString);
       }
     } catch (Exception e) {
       logger.error("Unable to process incoming vehicle", e);

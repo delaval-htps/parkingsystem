@@ -122,7 +122,7 @@ public class ParkingServiceTest {
           .contains(
               expectedInfoMessageProcessIncomingVehicle2
                   + ticketCaptor.getValue().getVehicleRegNumber()
-                  + " is:" + ticketCaptor.getValue().getInTime() + "/n");
+                  + " is:" + ticketCaptor.getValue().getInTime());
     }
 
     /**
@@ -166,12 +166,13 @@ public class ParkingServiceTest {
 
       assertThat(logCaptor.getWarnLogs())
           .containsExactly(expectedWarningMessageProcessIncomingVehicle);
+
       assertThat(logCaptor.getInfoLogs())
           .contains(expectedInfoMessageProcessIncomingVehicle
               + ticketCaptor.getValue().getParkingSpot().getId())
           .contains(expectedInfoMessageProcessIncomingVehicle2
               + ticketCaptor.getValue().getVehicleRegNumber() + " is:"
-              + ticketCaptor.getValue().getInTime() + "/n");
+              + ticketCaptor.getValue().getInTime());
     }
 
     /**
