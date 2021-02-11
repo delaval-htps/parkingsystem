@@ -26,7 +26,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
  *
  */
 @ExtendWith(MockitoExtension.class)
-public class ParkingDataBaseIT {
+class ParkingDataBaseIT {
   private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
   private static ParkingSpotDao parkingSpotDAO;
   private static TicketDao ticketDAO;
@@ -63,7 +63,7 @@ public class ParkingDataBaseIT {
    * Test to check if a ticket is correctly save in database when a car is parked.
    */
   @Test
-  public void testParkingACar() {
+  void testParkingACar() {
     // GIVEN
     
     Source source = new Source("jdbc:mysql://localhost:3306/test", "root", "Jsadmin4all");
@@ -106,7 +106,7 @@ public class ParkingDataBaseIT {
    * test to check if the far and out time are correctly generated and save in database.
    */
   @Test
-  public void testParkingLotExit() {
+  void testParkingLotExit() {
     // GIVEN:change testParkingACar() by parkingService.processIncomingVehicle to not depends of the
     // first IT and respect "FIRST"
 

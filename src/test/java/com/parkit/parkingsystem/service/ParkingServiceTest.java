@@ -75,12 +75,12 @@ public class ParkingServiceTest {
    */
   @Nested
   @DisplayName("test for process incoming vehicle")
-  public class ProcessIncomingVehiculeTest {
+  class ProcessIncomingVehiculeTest {
     /**
      * test for a incoming Car.
      */
     @Test
-    public void processIncomingCarTest() {
+    void processIncomingCarTest() {
       // ARRANGE
       try {
         when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
@@ -108,7 +108,7 @@ public class ParkingServiceTest {
       // verify that ticket.getId is not null is non compliant because a primitive is never null and
       // id in table is declare not null
       assertThat(ticketCaptor.getValue().getOutTime()).isNull();
-      assertThat(ticketCaptor.getValue().getPrice()).isEqualTo(0);
+      assertThat(ticketCaptor.getValue().getPrice()).isZero();
       assertThat(ticketCaptor.getValue().getInTime()).isNotNull();
       assertThat(ticketCaptor.getValue().getParkingSpot()).isEqualTo(parkingSpot);
       assertThat(ticketCaptor.getValue().getVehicleRegNumber()).isEqualTo("ABCDEF");
@@ -129,7 +129,7 @@ public class ParkingServiceTest {
      * test for incoming Bike.
      */
     @Test
-    public void processIncomingBikeTest() {
+    void processIncomingBikeTest() {
       // ARRANGE
       try {
         when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
@@ -157,7 +157,7 @@ public class ParkingServiceTest {
       // verify that ticket.getId is not null is non compliant because a primitive is never null and
       // id in table is declare not null
       assertThat(ticketCaptor.getValue().getOutTime()).isNull();
-      assertThat(ticketCaptor.getValue().getPrice()).isEqualTo(0);
+      assertThat(ticketCaptor.getValue().getPrice()).isZero();
       assertThat(ticketCaptor.getValue().getInTime()).isNotNull();
       assertThat(ticketCaptor.getValue().getParkingSpot()).isEqualTo(parkingSpot);
       assertThat(ticketCaptor.getValue().getVehicleRegNumber()).isEqualTo("ABCDEF");
@@ -179,7 +179,7 @@ public class ParkingServiceTest {
      * test for incoming unkown vehicle.
      */
     @Test
-    public void processIncomingUnknownVehicleTest() {
+    void processIncomingUnknownVehicleTest() {
       // ARRANGE
 
       when(inputReaderUtil.readSelection()).thenReturn(-1);
@@ -202,7 +202,7 @@ public class ParkingServiceTest {
      * test for incoming vehicle when park is full.
      */
     @Test
-    public void processIncomingWhenParkFulledTest() {
+    void processIncomingWhenParkFulledTest() {
       // ARRANGE
       try {
         when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
@@ -231,7 +231,7 @@ public class ParkingServiceTest {
      * test for incoming vehicle with no parking spot= null.
      */
     @Test
-    public void processIncomingWhenNullParkingSpotTest() {
+    void processIncomingWhenNullParkingSpotTest() {
       // ARRANGE
 
       // when(inputReaderUtil.readSelection()).thenReturn(1);
@@ -257,7 +257,7 @@ public class ParkingServiceTest {
      * test for incoming car with a given parking spot negative.
      */
     @Test
-    public void processIncomingWhenNegativeParkingSpotTest() {
+    void processIncomingWhenNegativeParkingSpotTest() {
       // ARRANGE
 
       // when(inputReaderUtil.readSelection()).thenReturn(1);
@@ -293,7 +293,7 @@ public class ParkingServiceTest {
    */
   @Nested
   @DisplayName("tests for process exiting vehicle")
-  public class ProcessExitingVehicleTest {
+  class ProcessExitingVehicleTest {
     /**
      * Setup initialize for all test in the class.
      */
@@ -327,7 +327,7 @@ public class ParkingServiceTest {
      * </ul>
      */
     @Test
-    public void processExitingCarTest() {
+    void processExitingCarTest() {
       // ARRANGE
       parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
       ticket.setParkingSpot(parkingSpot);
@@ -365,7 +365,7 @@ public class ParkingServiceTest {
      * </ul>
      */
     @Test
-    public void processExitingBikeTest() {
+    void processExitingBikeTest() {
       // ARRANGE
       parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
       ticket.setParkingSpot(parkingSpot);
@@ -399,7 +399,7 @@ public class ParkingServiceTest {
      * </ul>
      */
     @Test
-    public void processExitingVehicle_WhenUnupdatedTicket() {
+    void processExitingVehicle_WhenUnupdatedTicket() {
       // ARRANGE
       parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
       ticket.setParkingSpot(parkingSpot);
@@ -428,7 +428,7 @@ public class ParkingServiceTest {
      * </ul>
      */
     @Test
-    public void processExitingVehicle_WhenTicketNotInDB() {
+    void processExitingVehicle_WhenTicketNotInDB() {
       // ARRANGE
       parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
       when(ticketDAO.getTicket("ABCDEF")).thenReturn(null);
@@ -461,7 +461,7 @@ public class ParkingServiceTest {
      * </ul>
      */
     @Test
-    public void processExitingCar_WhenRecurringUserTest() {
+    void processExitingCar_WhenRecurringUserTest() {
       // ARRANGE
       parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
       ticket.setParkingSpot(parkingSpot);
@@ -506,7 +506,7 @@ public class ParkingServiceTest {
      * </ul>
      */
     @Test
-    public void processExitingBike_WhenRecurringUserTest() {
+    void processExitingBike_WhenRecurringUserTest() {
       // ARRANGE
       parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
       ticket.setParkingSpot(parkingSpot);
@@ -546,12 +546,12 @@ public class ParkingServiceTest {
 
   @Nested
   @DisplayName("tests to get next number of parkingSpot")
-  public class GetNextNumberParkingSpotAvailabe {
+  class GetNextNumberParkingSpotAvailabe {
     /**
      * test to verify if the correct parking spot available is given for a entering car.
      */
     @Test
-    public void getNextNumberParkingSpotAvailableForCar() {
+    void getNextNumberParkingSpotAvailableForCar() {
       // ARRANGE
 
       when(inputReaderUtil.readSelection()).thenReturn(1);
@@ -564,15 +564,15 @@ public class ParkingServiceTest {
 
       // ASSERT
       assertThat(parkingSpot.getParkingType()).isEqualTo(ParkingType.CAR);
-      assertThat(parkingSpot.getId()).isGreaterThan(0);
-      assertThat(parkingSpot.isAvailable()).isEqualTo(true);
+      assertThat(parkingSpot.getId()).isPositive();
+      assertThat(parkingSpot.isAvailable()).isTrue();
     }
 
     /**
      * test to verify if the correct parking spot available is given for a entering Bike.
      */
     @Test
-    public void getNextNumberParkingSpotAvailableForBike() {
+    void getNextNumberParkingSpotAvailableForBike() {
       // ARRANGE
 
       when(inputReaderUtil.readSelection()).thenReturn(2);
@@ -585,15 +585,15 @@ public class ParkingServiceTest {
 
       // ASSERT
       assertThat(parkingSpot.getParkingType()).isEqualTo(ParkingType.BIKE);
-      assertThat(parkingSpot.getId()).isGreaterThan(0);
-      assertThat(parkingSpot.isAvailable()).isEqualTo(true);
+      assertThat(parkingSpot.getId()).isPositive();
+      assertThat(parkingSpot.isAvailable()).isTrue();
     }
 
     /**
      * test to verify when unknown type of vehicle try to have a parking spot.
      */
     @Test
-    public void getNextNumberParkingSpotAvailableForUnkowType() {
+    void getNextNumberParkingSpotAvailableForUnkowType() {
       // ARRANGE
       when(inputReaderUtil.readSelection()).thenReturn(-1);
 
@@ -613,7 +613,7 @@ public class ParkingServiceTest {
      * test to verify when a car try to have a parking spot and the park is full.
      */
     @Test
-    public void getNextNumberCarParkingSpotAvailable_WhenFullPark() {
+    void getNextNumberCarParkingSpotAvailable_WhenFullPark() {
       // ARRANGE
       when(inputReaderUtil.readSelection()).thenReturn(1);
       when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(-1);
@@ -635,7 +635,7 @@ public class ParkingServiceTest {
      * test to verify when a bike try to have a parking spot and the park is full.
      */
     @Test
-    public void getNextNumberBikeParkingSpotAvailable_WhenFullPark() {
+    void getNextNumberBikeParkingSpotAvailable_WhenFullPark() {
       // ARRANGE
       when(inputReaderUtil.readSelection()).thenReturn(2);
       when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(-1);
