@@ -69,9 +69,10 @@ public class ParkingService {
 
         logger.warn("Generated Ticket and saved in DB");
         logger.info("------------------------------------------------------------------------");
-        logger.info("Please park your vehicle in spot number:" + parkingSpot.getId());
+        logger.info("Please park your vehicle in spot number:{}", parkingSpot.getId());
+
         logger.info(
-            "Recorded in-time for vehicle number:" + vehicleRegNumber + " is:" + inTime + "/n");
+            "Recorded in-time for vehicle number: {} is: {}", vehicleRegNumber, inTime);
       }
     } catch (Exception e) {
       logger.error("Unable to process incoming vehicle", e);
@@ -150,9 +151,9 @@ public class ParkingService {
           logger.info("Welcome back! As a recurring user of our parking lot,"
               + " you'll benefit from a 5% discount!");
         }
-        logger.info("Please pay the parking fare:" + ticket.getPrice());
-        logger.info("Recorded out-time for vehicle number:" + ticket.getVehicleRegNumber()
-            + " is:" + outTime);
+        logger.info("Please pay the parking fare:{}", ticket.getPrice());
+        logger.info("Recorded out-time for vehicle number: {} is: {}", ticket.getVehicleRegNumber(),
+            outTime);
       } else {
         logger.error("Unable to update ticket information. Error occurred");
       }
