@@ -11,6 +11,7 @@ import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Source;
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -26,6 +27,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
  *
  */
 @ExtendWith(MockitoExtension.class)
+@FixMethodOrder
 class ParkingDataBaseIT {
   private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
   private static ParkingSpotDao parkingSpotDAO;
