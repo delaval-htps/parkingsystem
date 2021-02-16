@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
  * @author delaval
  *
  */
-public class ParkingSpotDaoTest {
+public class ParkingSpotDaoIT {
   private static ParkingSpotDao parkingSpotDao;
   private static DataBaseConfig dataBaseConfig;
   private static DataBasePrepareService dataBasePrepareService;
