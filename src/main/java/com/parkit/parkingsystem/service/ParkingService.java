@@ -158,8 +158,11 @@ public class ParkingService {
               + " you'll benefit from a 5% discount!");
         }
         logger.info("Please pay the parking fare:{}", ticket.getPrice());
+        // need to format Date in string with pattern because of use
+        Format formatter = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", new Locale("EN", "en"));
+        String outTimeAsString = formatter.format(ticket.getOutTime());
         logger.info("Recorded out-time for vehicle number: {} is: {}", ticket.getVehicleRegNumber(),
-            outTime);
+            outTimeAsString);
       } else {
         logger.error("Unable to update ticket information. Error occurred");
       }
