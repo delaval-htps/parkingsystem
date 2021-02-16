@@ -3,8 +3,6 @@ package com.parkit.parkingsystem.dao;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.db.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 import com.parkit.parkingsystem.config.DataBaseConfig;
@@ -15,7 +13,6 @@ import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
 import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -29,7 +26,12 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-
+/**
+ * class integration Test to test TicketDao with the database test.
+ * 
+ * @author delaval
+ *
+ */
 public class TicketDaoIT {
   private static TicketDao ticketDaoUnderTest;
   private static DataBaseConfig dataBaseConfig;

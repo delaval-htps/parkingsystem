@@ -43,6 +43,10 @@ public class DataBasePrepareService {
   /**
    * method to put value of a ticket in the Database for getTicketWhenCorrectValuesInDatabase() in
    * TicketDaoIT.
+   * 
+   * @param inTime the time of incoming vehicle
+   * @param outTime the time of exiting vehicle
+   * @return true if is set(save the ticketTest) or false if not
    */
   public boolean setTicketTest(Date inTime, Date outTime) {
     Connection con = null;
