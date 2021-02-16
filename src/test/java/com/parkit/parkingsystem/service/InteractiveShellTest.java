@@ -28,7 +28,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
  */
 @ExtendWith(MockitoExtension.class)
 @FixMethodOrder(MethodSorters.DEFAULT)
-class InteractiveShellTest {
+public class InteractiveShellTest {
 
   private static final LogCaptor logCaptor = LogCaptor.forRoot();
 
@@ -184,6 +184,30 @@ class InteractiveShellTest {
         "2 Vehicle Exiting - Generate Ticket Price", "3 Shutdown System",
         "*********************************************************************",
         "Exiting from the system!");
+  }
+
+  /**
+   * test to verify menu when we don't mock ParkingService. To verify branch with instantiation
+   * true.
+   */
+  @Test
+  void loadMenuWithoutSetParkingService() {
+    // ARRANGE
+    File fileTest = new File("InputExit");
+    Scanner mockScan = null;
+    try {
+      mockScan = new Scanner(fileTest);
+      InputReaderUtil.setScan(mockScan);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    // ACT
+    InteractiveShell.restoreInteractiveShell();
+    InteractiveShell.loadInterface();
+
+    // ASSERT
+    assertThat(parkingService).isNotNull();
   }
 
 }

@@ -45,9 +45,9 @@ public class ParkingSpotDao {
       ps = con.prepareStatement(DbConstants.GET_NEXT_PARKING_SPOT);
       ps.setString(1, parkingType.toString());
       rs = ps.executeQuery();
-      if (rs.next()) {
-        result = rs.getInt(1);
-      }
+      rs.next();
+      result = rs.getInt(1);
+
       dataBaseConfig.closeResultSet(rs);
       dataBaseConfig.closePreparedStatement(ps);
     } catch (Exception ex) {

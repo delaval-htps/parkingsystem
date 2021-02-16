@@ -44,6 +44,14 @@ This app uses Java to run and stores the data in Mysql DB.
 * fix all bugs in the project according to Sonarcloud
 * the coverage pass to 85% to 53% because of update especially in com.parkit.parkingsystem.dao  (need to rise the coverage in the next release...)
 * update of javadoc
+
+**V0.1.6**:
+
+* add ParkingSpotDaoIT and TicketDaoIT for integration test with database Test.
+* add ParkingSpotTest for UT with the override method equal()
+* update FareCalculatorServiceTest, ParkingServiceTest, ParkingDataBaseIT to rise coverage
+* branch coverage rise to 82.8% with Jacoco.
+* update javadoc and send to sonarcloud
  
 ## Getting Started
 

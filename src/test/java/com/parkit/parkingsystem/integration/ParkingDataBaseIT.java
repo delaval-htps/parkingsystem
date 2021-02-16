@@ -14,7 +14,10 @@ import org.assertj.db.type.Source;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -26,7 +29,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
  *
  */
 @ExtendWith(MockitoExtension.class)
-class ParkingDataBaseIT {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class ParkingDataBaseIT {
   private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
   private static ParkingSpotDao parkingSpotDAO;
   private static TicketDao ticketDAO;
@@ -63,9 +67,9 @@ class ParkingDataBaseIT {
    * Test to check if a ticket is correctly save in database when a car is parked.
    */
   @Test
+  @Order(1)
   void testParkingACar() {
     // GIVEN
-    
     Source source = new Source("jdbc:mysql://localhost:3306/test", "root", "Jsadmin4all");
     Changes changesWhenParkingCar = new Changes(source);
     changesWhenParkingCar.setStartPointNow();
@@ -106,22 +110,19 @@ class ParkingDataBaseIT {
    * test to check if the far and out time are correctly generated and save in database.
    */
   @Test
+  @Order(2)
   void testParkingLotExit() {
     // GIVEN:change testParkingACar() by parkingService.processIncomingVehicle to not depends of the
     // first IT and respect "FIRST"
-
-    ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-
-    parkingService.processIncomingVehicle();
-
     Source source = new Source("jdbc:mysql://localhost:3306/test", "root", "Jsadmin4all");
     Changes changesWhenExitedCar = new Changes(source);
 
+    ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+    parkingService.processIncomingVehicle();
+
     changesWhenExitedCar.setStartPointNow();
 
-
     // WHEN
-
     parkingService.processExitingVehicle();
 
     changesWhenExitedCar.setEndPointNow();
