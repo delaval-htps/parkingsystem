@@ -32,7 +32,7 @@ import org.mockito.Mockito;
  * @author delaval
  *
  */
-public class TicketDaoIT {
+public class TicketDaoTest {
   private static TicketDao ticketDaoUnderTest;
   private static DataBaseConfig dataBaseConfig;
   private static DataBasePrepareService dataBasePrepareService;
