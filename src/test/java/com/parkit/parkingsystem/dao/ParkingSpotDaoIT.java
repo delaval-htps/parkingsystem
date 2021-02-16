@@ -14,8 +14,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-
-class ParkingSpotDaoIT {
+/**
+ * class integration Test to test ParkingSpotDao with the database test.
+ * 
+ * @author delaval
+ *
+ */
+public class ParkingSpotDaoIT {
   private static ParkingSpotDao parkingSpotDao;
   private static DataBaseConfig dataBaseConfig;
   private static DataBasePrepareService dataBasePrepareService;
@@ -41,6 +46,12 @@ class ParkingSpotDaoIT {
     dataBasePrepareService.clearDataBaseEntries();
   }
 
+  /**
+   * class to test method getNextAvailableSlot.
+   * 
+   * @author delaval
+   *
+   */
   @Nested
   class GetNextAvailableSlotTest {
     @Test
@@ -100,6 +111,12 @@ class ParkingSpotDaoIT {
     }
   }
 
+  /**
+   * class to test method updateParking().
+   * 
+   * @author delaval
+   *
+   */
   @Nested
   class UpdateParkingTest {
     @Test

@@ -28,7 +28,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
  */
 @ExtendWith(MockitoExtension.class)
 @FixMethodOrder(MethodSorters.DEFAULT)
-class InteractiveShellTest {
+public class InteractiveShellTest {
 
   private static final LogCaptor logCaptor = LogCaptor.forRoot();
 

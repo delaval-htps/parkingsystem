@@ -1,16 +1,23 @@
 package com.parkit.parkingsystem.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 import com.parkit.parkingsystem.constants.ParkingType;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ParkinSpotTest {
+/**
+ * class unit test for class ParkingSpot.
+ * 
+ * @author delaval
+ *
+ */
+public class ParkinSpotTest {
   
   private static ParkingSpot parkingSpot;
   private boolean result;
+
   @BeforeAll
   static void setUpBeforeClass() throws Exception {
     parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
@@ -48,14 +55,23 @@ class ParkinSpotTest {
     assertThat(result).isFalse();
   }
 
+
   @Test
   void equalWhenNotParkingSpotClassTest() {
     // ARRANGE...
-    Ticket anotherParkingSpot = new Ticket();
+    ParkingSpotSon anotherParkingSpot = new ParkingSpotSon(1, ParkingType.CAR, false);
     // ACT
     result = parkingSpot.equals(anotherParkingSpot);
     // ASSERT
     assertThat(result).isFalse();
+  }
+
+  private class ParkingSpotSon extends ParkingSpot {
+    public ParkingSpotSon(int number, ParkingType parkingType, boolean isAvailable) {
+      super(number, parkingType, isAvailable);
+
+    }
+
   }
 
 }
