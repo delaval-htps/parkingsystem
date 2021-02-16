@@ -114,17 +114,15 @@ public class ParkingDataBaseIT {
   void testParkingLotExit() {
     // GIVEN:change testParkingACar() by parkingService.processIncomingVehicle to not depends of the
     // first IT and respect "FIRST"
-    ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-    parkingService.processIncomingVehicle();
     Source source = new Source("jdbc:mysql://localhost:3306/test", "root", "Jsadmin4all");
     Changes changesWhenExitedCar = new Changes(source);
 
+    ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+    parkingService.processIncomingVehicle();
 
     changesWhenExitedCar.setStartPointNow();
 
-
     // WHEN
-
     parkingService.processExitingVehicle();
 
     changesWhenExitedCar.setEndPointNow();
