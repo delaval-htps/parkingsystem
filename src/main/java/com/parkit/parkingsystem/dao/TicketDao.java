@@ -150,17 +150,16 @@ public class TicketDao {
       ps = con.prepareStatement(DbConstants.VERIFY_RECURRING_USER);
       ps.setString(1, vehicleRegNumber);
       rs = ps.executeQuery();
-      if (rs.next()) {
-        return (rs.getInt(1) > 0);
-      }
+      rs.next();
+      return (rs.getInt(1) > 0);
 
     } catch (Exception e) {
       logger.error("Error to verify if it's a recurring user", e);
+      return false;
     } finally {
       dataBaseConfig.closeConnection(con);
       dataBaseConfig.closePreparedStatement(ps);
       dataBaseConfig.closeResultSet(rs);
     }
-    return false;
   }
 }

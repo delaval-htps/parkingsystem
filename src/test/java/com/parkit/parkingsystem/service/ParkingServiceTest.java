@@ -105,8 +105,9 @@ public class ParkingServiceTest {
       verify(parkingSpotDAO, times(1)).updateParking(parkingSpotCaptor.capture());
       verify(ticketDAO, times(1)).saveTicket(ticketCaptor.capture());
 
-      // verify that ticket.getId is not null is non compliant because a primitive is never null and
-      // id in table is declare not null
+      // to verify if ticket and parkingspot are correctly set with the correct values ,we use
+      // ticketCaptor and parkingSpotCaptor to check there values (they represent ticket and
+      // parkingspot )
       assertThat(ticketCaptor.getValue().getOutTime()).isNull();
       assertThat(ticketCaptor.getValue().getPrice()).isZero();
       assertThat(ticketCaptor.getValue().getInTime()).isNotNull();
@@ -154,8 +155,9 @@ public class ParkingServiceTest {
       verify(parkingSpotDAO, times(1)).updateParking(parkingSpotCaptor.capture());
       verify(ticketDAO, times(1)).saveTicket(ticketCaptor.capture());
 
-      // verify that ticket.getId is not null is non compliant because a primitive is never null and
-      // id in table is declare not null
+      // to verify if ticket and parkingspot are correctly set with the correct values ,we use
+      // ticketCaptor and parkingSpotCaptor to check there value (they represent ticket and
+      // parkingspot )
       assertThat(ticketCaptor.getValue().getOutTime()).isNull();
       assertThat(ticketCaptor.getValue().getPrice()).isZero();
       assertThat(ticketCaptor.getValue().getInTime()).isNotNull();
@@ -234,11 +236,6 @@ public class ParkingServiceTest {
     void processIncomingWhenNullParkingSpotTest() {
       // ARRANGE
 
-      // when(inputReaderUtil.readSelection()).thenReturn(1);
-      // when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
-      // when(parkingService.getNextParkingNumberIfAvailable())
-      // .thenReturn(new ParkingSpot(-12, ParkingType.CAR, true));
-
       parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
       parkingService = Mockito.spy(parkingService);
      
@@ -259,11 +256,6 @@ public class ParkingServiceTest {
     @Test
     void processIncomingWhenNegativeParkingSpotTest() {
       // ARRANGE
-
-      // when(inputReaderUtil.readSelection()).thenReturn(1);
-      // when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
-      // when(parkingService.getNextParkingNumberIfAvailable())
-      // .thenReturn(new ParkingSpot(-12, ParkingType.CAR, true));
 
       parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
       parkingService = Mockito.spy(parkingService);
@@ -347,6 +339,9 @@ public class ParkingServiceTest {
       verify(parkingSpotDAO, times(1)).updateParking(parkingSpotCaptor.capture());
       verify(ticketDAO, times(1)).updateTicket(ticketCaptor.capture());
 
+      // to verify if ticket and parkingspot are correctly set with the correct values ,we use
+      // ticketCaptor and parkingSpotCaptor to check there values (they represent ticket and
+      // parkingspot )
       assertThat(parkingSpotCaptor.getValue().isAvailable()).isTrue();
       assertThat(ticketCaptor.getValue().getOutTime()).isNotNull();
       assertThat(ticketCaptor.getValue().getPrice()).isEqualTo(Fare.CAR_RATE_PER_HOUR);
@@ -385,6 +380,9 @@ public class ParkingServiceTest {
       verify(parkingSpotDAO, times(1)).updateParking(parkingSpotCaptor.capture());
       verify(ticketDAO, times(1)).updateTicket(ticketCaptor.capture());
 
+      // to verify if ticket and parkingspot are correctly set with the correct values ,we use
+      // ticketCaptor and parkingSpotCaptor to check there values (they represent ticket and
+      // parkingspot )
       assertThat(parkingSpotCaptor.getValue().isAvailable()).isTrue();
       assertThat(ticketCaptor.getValue().getOutTime()).isNotNull();
       assertThat(ticketCaptor.getValue().getPrice()).isEqualTo(Fare.BIKE_RATE_PER_HOUR);
@@ -485,6 +483,9 @@ public class ParkingServiceTest {
       verify(ticketDAO, times(1)).updateTicket(ticketCaptor.capture());
       verify(parkingSpotDAO, times(1)).updateParking(parkingSpotCaptor.capture());
 
+      // to verify if ticket and parkingspot are correctly set with the correct values ,we use
+      // ticketCaptor and parkingSpotCaptor to check there values (they represent ticket and
+      // parkingspot )
       assertThat(parkingSpotCaptor.getValue().isAvailable()).isTrue();
       assertThat(ticketCaptor.getValue().getOutTime()).isNotNull();
       assertThat(ticketCaptor.getValue().getPrice())
@@ -530,6 +531,9 @@ public class ParkingServiceTest {
       verify(ticketDAO, times(1)).updateTicket(ticketCaptor.capture());
       verify(parkingSpotDAO, times(1)).updateParking(parkingSpotCaptor.capture());
 
+      // to verify if ticket and parkingspot are correctly set with the correct values ,we use
+      // ticketCaptor and parkingSpotCaptor to check there values (they represent ticket and
+      // parkingspot )
       assertThat(parkingSpotCaptor.getValue().isAvailable()).isTrue();
       assertThat(ticketCaptor.getValue().getOutTime()).isNotNull();
       assertThat(ticketCaptor.getValue().getPrice())

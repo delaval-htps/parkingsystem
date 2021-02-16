@@ -86,7 +86,7 @@ public class FareCalculatorServiceTest {
 
 
     @Test
-    void calculateFareUnkownType() {
+    void calculateFareNullTypeVehicle() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
@@ -101,6 +101,25 @@ public class FareCalculatorServiceTest {
       // ASSERT
       assertThatThrownBy(() -> fareCalculatorService.calculateFare(ticket))
           .isInstanceOf(NullPointerException.class);
+
+    }
+
+    @Test
+    void calculateFareUnkownTypeVehicle() {
+      // ARRANGE
+      Date inTime = new Date();
+      inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
+      Date outTime = new Date();
+      ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.UNKNOWN, false);
+
+      // ACT
+      ticket.setInTime(inTime);
+      ticket.setOutTime(outTime);
+      ticket.setParkingSpot(parkingSpot);
+
+      // ASSERT
+      assertThatThrownBy(() -> fareCalculatorService.calculateFare(ticket))
+          .isInstanceOf(IllegalArgumentException.class);
 
     }
 
