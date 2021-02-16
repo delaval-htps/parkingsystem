@@ -186,4 +186,28 @@ class InteractiveShellTest {
         "Exiting from the system!");
   }
 
+  /**
+   * test to verify menu when we don't mock ParkingService. To verify branch with instantiation
+   * true.
+   */
+  @Test
+  void loadMenuWithoutSetParkingService() {
+    // ARRANGE
+    File fileTest = new File("InputExit");
+    Scanner mockScan = null;
+    try {
+      mockScan = new Scanner(fileTest);
+      InputReaderUtil.setScan(mockScan);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    // ACT
+    InteractiveShell.restoreInteractiveShell();
+    InteractiveShell.loadInterface();
+
+    // ASSERT
+    assertThat(parkingService).isNotNull();
+  }
+
 }
