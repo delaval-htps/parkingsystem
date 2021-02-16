@@ -52,6 +52,12 @@ This app uses Java to run and stores the data in Mysql DB.
 * update FareCalculatorServiceTest, ParkingServiceTest, ParkingDataBaseIT to rise coverage
 * branch coverage rise to 82.8% with Jacoco.
 * update javadoc and send to sonarcloud
+
+**V0.1.7 LTS**:
+
+* sonarcloud didn't give the correct coverage according to jacoco report.
+* update of pom.xml to have the correct report in jacoco
+* **version LTS:** <ins>tests are OK and sonarcloud report coverage is 84,6%</ins>
  
 ## Getting Started
 
