@@ -155,7 +155,7 @@
 				            <id>validate</id>
 				            <phase>validate</phase>
 				            <configuration>
-				                <configLocation>google_checks.xml</configLocation>
+				                <configLocation>${resource.directory}google_checks.xml</configLocation>
 				                <suppressionsLocation>suppressions.xml
 				                </suppressionsLocation>
 				                <encoding>UTF-8</encoding>
