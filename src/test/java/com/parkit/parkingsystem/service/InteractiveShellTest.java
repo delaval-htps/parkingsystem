@@ -58,7 +58,7 @@ public class InteractiveShellTest {
 
   void loadMenuUnsupportedOptionTest() {
     // ARRANGE
-    File fileTest = new File("InputUnsupportedOption");
+    File fileTest = new File("src/test/resources/InputUnsupportedOption");
     Scanner mockScan = null;
     try {
       mockScan = new Scanner(fileTest);
@@ -95,7 +95,7 @@ public class InteractiveShellTest {
 
   void loadMenuExitSystemTest() {
     // ARRANGE
-    File fileTest = new File("InputExit");
+    File fileTest = new File("src/test/resources/InputExit");
     Scanner mockScan = null;
     try {
       mockScan = new Scanner(fileTest);
@@ -125,7 +125,7 @@ public class InteractiveShellTest {
   @Test
   void loadMenuProcessIncomingVehicleTest() {
     // ARRANGE
-    File fileTest = new File("InputIncoming");
+    File fileTest = new File("src/test/resources/InputIncoming");
     Scanner mockScan = null;
     try {
       mockScan = new Scanner(fileTest);
@@ -160,7 +160,7 @@ public class InteractiveShellTest {
   @Test
   void loadMenuProcessExitingVehicleTest() {
     // ARRANGE
-    File fileTest = new File("InputExiting");
+    File fileTest = new File("src/test/resources/InputExiting");
     Scanner mockScan = null;
     try {
       mockScan = new Scanner(fileTest);
@@ -193,7 +193,7 @@ public class InteractiveShellTest {
   @Test
   void loadMenuWithoutSetParkingService() {
     // ARRANGE
-    File fileTest = new File("InputExit");
+    File fileTest = new File("src/test/resources/InputExit");
     Scanner mockScan = null;
     try {
       mockScan = new Scanner(fileTest);
