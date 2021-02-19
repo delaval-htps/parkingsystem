@@ -8,9 +8,8 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Interface of display menu on console out.
- * 
- * @author delaval
  *
+ * @author delaval
  */
 public class InteractiveShell {
 
@@ -25,7 +24,7 @@ public class InteractiveShell {
 
   /**
    * method to mock easily ParkingService in {@link InteractiveShellTest}.
-   * 
+   *
    * @param parkingService this object will be use in InteractiveShellTest to be mock and verify its
    *        calls
    */

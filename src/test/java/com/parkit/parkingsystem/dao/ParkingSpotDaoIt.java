@@ -16,18 +16,17 @@ import org.junit.jupiter.api.Test;
 
 /**
  * class integration Test to test ParkingSpotDao with the database test.
- * 
- * @author delaval
  *
+ * @author delaval
  */
-public class ParkingSpotDaoIT {
+public class ParkingSpotDaoIt {
   private static ParkingSpotDao parkingSpotDao;
   private static DataBaseConfig dataBaseConfig;
   private static DataBasePrepareService dataBasePrepareService;
   private static ParkingSpot parkingSpot;
   private int result;
 
-  
+
   @BeforeAll
   static void setUpBeforeClass() throws Exception {
     parkingSpotDao = new ParkingSpotDao();
@@ -48,7 +47,7 @@ public class ParkingSpotDaoIT {
 
   /**
    * class to test method getNextAvailableSlot.
-   * 
+   *
    * @author delaval
    *
    */
@@ -113,7 +112,7 @@ public class ParkingSpotDaoIT {
 
   /**
    * class to test method updateParking().
-   * 
+   *
    * @author delaval
    *
    */

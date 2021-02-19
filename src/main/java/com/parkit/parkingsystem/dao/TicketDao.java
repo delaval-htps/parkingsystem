@@ -14,9 +14,8 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Service to manage(CRUD) entity of a ticket into the SGBD.
- * 
- * @author delaval
  *
+ * @author delaval
  */
 public class TicketDao {
 
@@ -34,7 +33,7 @@ public class TicketDao {
 
   /**
    * save the ticket in the database ticket.
-   * 
+   *
    * @param ticket represent the ticket of a vehicle
    * @return boolean true or false if the ticket was saved or not
    */
@@ -65,7 +64,7 @@ public class TicketDao {
 
   /**
    * return the ticket for vehicle with the number plate given in parameter.
-   * 
+   *
    * @param vehicleRegNumber the number plate of the vehicle
    * @return the ticket associated with the vehicle
    */
@@ -108,7 +107,7 @@ public class TicketDao {
 
   /**
    * update a ticket given in the parameter with the correct informations.
-   * 
+   *
    * @param ticket the ticket of vehicle
    * @return boolean true or false if the ticket was correctly updated
    */
@@ -134,7 +133,7 @@ public class TicketDao {
 
   /**
    * method to verify in DB table ticket if the user is recurring or not.
-   * 
+   *
    * @param vehicleRegNumber the number plate of the vehicle
    * @return boolean true or false
    */
@@ -142,7 +141,7 @@ public class TicketDao {
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
-    
+
     try {
       con = dataBaseConfig.getConnection();
 

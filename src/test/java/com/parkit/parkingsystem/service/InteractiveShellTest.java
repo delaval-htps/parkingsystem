@@ -20,11 +20,12 @@ import org.junit.runners.MethodSorters;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+
+
 /**
  * class test to improve {@link InteractiveShell}.
- * 
- * @author delaval
  *
+ * @author delaval
  */
 @ExtendWith(MockitoExtension.class)
 @FixMethodOrder(MethodSorters.DEFAULT)
@@ -104,10 +105,10 @@ public class InteractiveShellTest {
       e.printStackTrace();
     }
 
-    //ACT
+    // ACT
     InteractiveShell.loadInterface();
 
-    //ASSERT
+    // ASSERT
     assertThat(logCaptor.getInfoLogs()).containsExactly("Welcome to Parking System!",
         "*********************************************************************",
         "Please select an option. Simply enter the number to choose an action",

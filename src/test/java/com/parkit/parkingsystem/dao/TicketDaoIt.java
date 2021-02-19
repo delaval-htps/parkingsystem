@@ -28,11 +28,10 @@ import org.mockito.Mockito;
 
 /**
  * class integration Test to test TicketDao with the database test.
- * 
- * @author delaval
  *
+ * @author delaval
  */
-public class TicketDaoIT {
+public class TicketDaoIt {
   private static TicketDao ticketDaoUnderTest;
   private static DataBaseConfig dataBaseConfig;
   private static DataBasePrepareService dataBasePrepareService;
@@ -56,7 +55,7 @@ public class TicketDaoIT {
 
   /**
    * class test for save a ticket in the database.
-   * 
+   *
    * @author delaval
    *
    */
@@ -66,7 +65,7 @@ public class TicketDaoIT {
     @Test
     void saveTicketWhenNoConnectionDatabase() {
       // ARRANGE
-     
+
       dataBaseConfig = null;
       ticketDaoUnderTest.setDataBaseConfig(dataBaseConfig);
 
@@ -118,8 +117,8 @@ public class TicketDaoIT {
       assertThat(tableTicket).column("PARKING_NUMBER").value().isEqualTo(1);
       assertThat(tableTicket).column("VEHICLE_REG_NUMBER").value().isEqualTo("ABCDEF");
       assertThat(tableTicket).column("PRICE").value().isEqualTo(Fare.CAR_RATE_PER_HOUR);
-      assertThat(tableTicket).column("IN_TIME").value().isDateTime().isCloseTo(
-          DateTimeValue.from(new Timestamp(inTime.getTime())), TimeValue.of(0, 0, 1));
+      assertThat(tableTicket).column("IN_TIME").value().isDateTime()
+          .isCloseTo(DateTimeValue.from(new Timestamp(inTime.getTime())), TimeValue.of(0, 0, 1));
 
       assertThat(tableTicket).column("OUT_TIME").value().isNull();
     }
@@ -163,7 +162,7 @@ public class TicketDaoIT {
 
   /**
    * class Test to get a ticket from a database.
-   * 
+   *
    * @author delaval
    *
    */
@@ -230,7 +229,7 @@ public class TicketDaoIT {
 
   /**
    * class Test to get a ticket from a database.
-   * 
+   *
    * @author delaval
    *
    */
@@ -294,6 +293,7 @@ public class TicketDaoIT {
 
   /**
    * class Test to get a ticket from a database.
+   *
    * @author delaval
    */
   @Nested

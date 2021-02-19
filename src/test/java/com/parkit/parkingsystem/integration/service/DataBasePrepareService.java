@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * class for the preparation of the database.
- * 
+ *
  * @author delaval
  *
  */
@@ -20,7 +20,7 @@ public class DataBasePrepareService {
 
   /**
    * method to clear elements of the database.
-   * 
+   *
    */
   public void clearDataBaseEntries() {
     Connection connection = null;
@@ -43,7 +43,7 @@ public class DataBasePrepareService {
   /**
    * method to put value of a ticket in the Database for getTicketWhenCorrectValuesInDatabase() in
    * TicketDaoIT.
-   * 
+   *
    * @param inTime the time of incoming vehicle
    * @param outTime the time of exiting vehicle
    * @return true if is set(save the ticketTest) or false if not
@@ -97,7 +97,7 @@ public class DataBasePrepareService {
   /**
    * method to set the test parking's row with the parkingNumber with available to false. Used with
    * ParkingSpotDaoIT.updateParking_WhenParkingNumberExist()
-   * 
+   *
    * @param parkingNumber the parking number's slot to update
    */
   public void setParkingSpotNoAvailable(int parkingNumber) {

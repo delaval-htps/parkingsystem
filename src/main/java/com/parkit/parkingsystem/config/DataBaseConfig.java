@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Class of configuration for the database MySql.
- * 
+ *
  * @author delaval
  *
  */
@@ -20,7 +20,7 @@ public class DataBaseConfig {
 
   /**
    * method to connect to the database.
-   * 
+   *
    * @return a connection with the database
    * @throws ClassNotFoundException if the Database is not found
    * @throws SQLException if there is problem of connection with the database
@@ -33,7 +33,7 @@ public class DataBaseConfig {
 
   /**
    * method to close the connection with the database.
-   * 
+   *
    * @param con A connection to the database
    */
   public void closeConnection(Connection con) {
@@ -49,7 +49,7 @@ public class DataBaseConfig {
 
   /**
    * method to close the preparedStatement to send SQL request.
-   * 
+   *
    * @param ps a preparedStatement to send request to the database
    */
   public void closePreparedStatement(PreparedStatement ps) {
@@ -65,7 +65,7 @@ public class DataBaseConfig {
 
   /**
    * method to close the reader of result to SQL request.
-   * 
+   *
    * @param rs a ResultSet a list with the answer of a SQL request
    */
   public void closeResultSet(ResultSet rs) {

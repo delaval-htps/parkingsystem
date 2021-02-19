@@ -5,15 +5,14 @@ import com.parkit.parkingsystem.model.Ticket;
 
 /**
  * Service of calculation of fare for a use of park for any vehicule with it's ticket.
- * 
- * @author delaval
  *
+ * @author delaval
  */
 public class FareCalculatorService {
 
   /**
    * calculate the fare for one ticket.
-   * 
+   *
    * @param ticket the ticket {@link Ticket} for a vehicle including:
    *        <ul>
    *        <li>the type of vehicle (CAR or BIKE)</li>
@@ -23,7 +22,7 @@ public class FareCalculatorService {
    *        <li>the wehicleRegNumber : the number plate of vehicle
    *        <li>the price: price of parking duration</li>
    *        </ul>
-   * 
+   *
    */
   public void calculateFare(Ticket ticket) {
     if ((ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime()))) {

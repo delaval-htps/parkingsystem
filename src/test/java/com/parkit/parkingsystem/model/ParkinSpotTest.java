@@ -9,12 +9,10 @@ import org.junit.jupiter.api.Test;
 
 /**
  * class unit test for class ParkingSpot.
- * 
- * @author delaval
  *
+ * @author delaval
  */
 public class ParkinSpotTest {
-  
   private static ParkingSpot parkingSpot;
   private boolean result;
 
@@ -34,7 +32,7 @@ public class ParkinSpotTest {
     // ASSERT
     assertThat(result).isTrue();
   }
-  
+
   @Test
   void equalWhenNotSameParkingSpotTest() {
     // ARRANGE...

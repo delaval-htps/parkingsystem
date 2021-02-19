@@ -24,13 +24,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  * class of integration tests to check the use of Database.
- * 
+ *
  * @author delaval
  *
  */
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ParkingDataBaseIT {
+public class ParkingDataBaseIt {
 
   private static DataBaseTestConfig dataBaseTestConfig;
   private static DataBasePrepareService dataBasePrepareService;
@@ -66,23 +66,23 @@ public class ParkingDataBaseIT {
 
   @AfterAll
   private static void tearDown() {
-   
+
   }
 
   /**
    * Test to check if a ticket is correctly save in database when a car is parked.
-   * 
+   *
    * @throws Exception when {@link InputReaderUtil} not be able to read the vehicle numbers
    */
   @Order(1)
   @Test
-  void testParkingACar() throws Exception {
+  void testParkingCar() throws Exception {
     // GIVEN
 
     Changes changesWhenParkingCar = new Changes(source);
     changesWhenParkingCar.setStartPointNow();
 
-    //WHEN
+    // WHEN
     parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
     parkingService.processIncomingVehicle();
     changesWhenParkingCar.setEndPointNow();
@@ -94,27 +94,21 @@ public class ParkingDataBaseIT {
 
         .rowAtStartPoint().doesNotExist()
 
-        .rowAtEndPoint()
-        .value("ID").isNotNull()
-        .value("PARKING_NUMBER").isNumber()
-        .value("PRICE").isEqualTo(0)
-        .value("IN_TIME").isNotNull()
-        .value("OUT_TIME").isNull();
+        .rowAtEndPoint().value("ID").isNotNull().value("PARKING_NUMBER").isNumber().value("PRICE")
+        .isEqualTo(0).value("IN_TIME").isNotNull().value("OUT_TIME").isNull();
 
     // check that Parking table is updated with availability
     assertThat(changesWhenParkingCar).changeOfModificationOnTable("parking")
 
-        .rowAtStartPoint()
-        .value("AVAILABLE").isTrue()
+        .rowAtStartPoint().value("AVAILABLE").isTrue()
 
-        .rowAtEndPoint()
-        .value("AVAILABLE").isFalse();
+        .rowAtEndPoint().value("AVAILABLE").isFalse();
 
   }
 
   /**
    * test to check if the far and out time are correctly generated and save in database.
-   * 
+   *
    * @throws Exception when {@link InputReaderUtil} not be able to read the vehicle number
    */
   @Order(2)
@@ -149,13 +143,10 @@ public class ParkingDataBaseIT {
 
     assertThat(changesWhenExitedCar).changeOfModificationOnTable("ticket")
 
-        .rowAtStartPoint().exists()
-        .value("PRICE").isEqualTo(0)
-        .value("OUT_TIME").isNull()
+        .rowAtStartPoint().exists().value("PRICE").isEqualTo(0).value("OUT_TIME").isNull()
 
-        .rowAtEndPoint()
-        .value("PRICE").isGreaterThanOrEqualTo(0)
-        .value("OUT_TIME").isDateTime().isNotNull();
+        .rowAtEndPoint().value("PRICE").isGreaterThanOrEqualTo(0).value("OUT_TIME").isDateTime()
+        .isNotNull();
 
     // check out time are populated correctly in the database comparing values after and before
 

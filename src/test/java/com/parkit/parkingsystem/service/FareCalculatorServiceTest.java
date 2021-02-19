@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * class Test with all unit tests for the class {@link FareCalculatorService}.
- * 
+ *
  * @author delaval
  *
  */
@@ -39,9 +39,8 @@ public class FareCalculatorServiceTest {
 
   /**
    * class test to check the calculation of far to any type of vehicle.
-   * 
-   * @author delaval
    *
+   * @author delaval
    */
   @Nested
   @Tag("CalculateFar")
@@ -158,8 +157,7 @@ public class FareCalculatorServiceTest {
       fareCalculatorService.calculateFare(ticket);
 
       // ASSERT
-      assertEquals(ticket.getPrice(),
-          Fare.roundedFare(0.75 * Fare.BIKE_RATE_PER_HOUR));
+      assertEquals(ticket.getPrice(), Fare.roundedFare(0.75 * Fare.BIKE_RATE_PER_HOUR));
     }
 
     @Test
@@ -179,12 +177,11 @@ public class FareCalculatorServiceTest {
       fareCalculatorService.calculateFare(ticket);
 
       // ASSERT
-      assertEquals(ticket.getPrice(),
-          Fare.roundedFare(0.75 * Fare.CAR_RATE_PER_HOUR));
+      assertEquals(ticket.getPrice(), Fare.roundedFare(0.75 * Fare.CAR_RATE_PER_HOUR));
     }
 
     @Test
-    void calculateFareCarWithMoreThanADayParkingTime() {
+    void calculateFareCarWithMoreThanDayParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       // 24 hours parking time should give 24 *
@@ -259,7 +256,7 @@ public class FareCalculatorServiceTest {
    * <li>type of vehicle: [Bike,Car,Other]</li>
    * </ul>
    * <strong>Test case set =</strong> {[0,Bike], [29,Car],[30,Bike],[30,Car],[29,Other],[30,Other]}
-   * 
+   *
    * @author delaval
    *
    */
@@ -277,7 +274,7 @@ public class FareCalculatorServiceTest {
       inTime.setTime(System.currentTimeMillis() - (29 * 60 * 1000));
       Date outTime = new Date();
       ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
-      
+
       // ACT
       ticket.setInTime(inTime);
       ticket.setOutTime(outTime);
@@ -295,7 +292,7 @@ public class FareCalculatorServiceTest {
       inTime.setTime(System.currentTimeMillis());
       Date outTime = new Date();
       ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.BIKE, false);
-      
+
       // ACT
       ticket.setInTime(inTime);
       ticket.setOutTime(outTime);
@@ -396,7 +393,7 @@ public class FareCalculatorServiceTest {
    * </ul>
    * <strong>Test case set =</strong> {[RecurringUser,Bike],
    * [RecurringUser,Car],[FirsTime,Bike],[FirsTime,Car],[FirstTime,Other],[Recurring,Other]}
-   * 
+   *
    * @author delaval
    *
    */
@@ -406,7 +403,7 @@ public class FareCalculatorServiceTest {
   class CalculateFarWithFivePourcentsDiscount {
     @Test
     void calculateFarRecurringCarOneHourParkingTime() {
-      //ARRANGE
+      // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
       Date outTime = new Date();
@@ -414,16 +411,15 @@ public class FareCalculatorServiceTest {
       ParkingSpot parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
 
 
-      //ACT
+      // ACT
       ticket.setInTime(inTime);
       ticket.setOutTime(outTime);
       ticket.setParkingSpot(parkingSpot);
       ticket.setIsRecurringUser(true);
       fareCalculatorService.calculateFare(ticket);
 
-      //ASSERT
-      assertThat(ticket.getPrice())
-          .isEqualTo(Fare.roundedFare(0.95 * Fare.CAR_RATE_PER_HOUR));
+      // ASSERT
+      assertThat(ticket.getPrice()).isEqualTo(Fare.roundedFare(0.95 * Fare.CAR_RATE_PER_HOUR));
     }
 
     @Test
@@ -444,12 +440,11 @@ public class FareCalculatorServiceTest {
       fareCalculatorService.calculateFare(ticket);
 
       // ASSERT
-      assertThat(ticket.getPrice())
-          .isEqualTo(Fare.roundedFare(0.95 * Fare.BIKE_RATE_PER_HOUR));
+      assertThat(ticket.getPrice()).isEqualTo(Fare.roundedFare(0.95 * Fare.BIKE_RATE_PER_HOUR));
     }
 
     @Test
-    void calculateFarCarFirstPArkingTime() {
+    void calculateFarCarFirstParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
@@ -470,7 +465,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    void calculateFarBikeFirstPArkingTime() {
+    void calculateFarBikeFirstParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
@@ -492,7 +487,7 @@ public class FareCalculatorServiceTest {
     }
 
     @Test
-    void calculateFarUnknowTypeUserFirstPArkingTime() {
+    void calculateFarUnknowTypeUserFirstParkingTime() {
       // ARRANGE
       Date inTime = new Date();
       inTime.setTime(System.currentTimeMillis() - (60 * 60 * 1000));
