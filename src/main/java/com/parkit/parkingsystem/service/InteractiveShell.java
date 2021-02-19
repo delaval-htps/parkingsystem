@@ -23,7 +23,7 @@ public class InteractiveShell {
   private static boolean instantiation = true;
 
   /**
-   * method to mock easily ParkingService in {@link InteractiveShellTest}.
+   * method to mock easily ParkingService in InteractiveShellTest.java.
    *
    * @param parkingService this object will be use in InteractiveShellTest to be mock and verify its
    *        calls
@@ -74,8 +74,8 @@ public class InteractiveShell {
           break;
         }
         default:
-          logger.info(
-              "Unsupported option. Please enter a number corresponding to the provided menu");
+          logger
+              .info("Unsupported option. Please enter a number corresponding to the provided menu");
       }
     }
   }
