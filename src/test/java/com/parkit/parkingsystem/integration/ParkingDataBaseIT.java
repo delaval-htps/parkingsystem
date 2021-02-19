@@ -31,10 +31,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ParkingDataBaseIT {
-  private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
+
+  private static DataBaseTestConfig dataBaseTestConfig;
+  private static DataBasePrepareService dataBasePrepareService;
+  private static ParkingService parkingService;
   private static ParkingSpotDao parkingSpotDAO;
   private static TicketDao ticketDAO;
-  private static DataBasePrepareService dataBasePrepareService;
+
+  private static Source source;
 
   @Mock
   private static InputReaderUtil inputReaderUtil;
@@ -42,20 +46,22 @@ public class ParkingDataBaseIT {
 
   @BeforeAll
   private static void setUp() throws Exception {
+    dataBaseTestConfig = new DataBaseTestConfig();
+    dataBasePrepareService = new DataBasePrepareService();
+
     parkingSpotDAO = new ParkingSpotDao();
     parkingSpotDAO.setDataBaseConfig(dataBaseTestConfig);
     ticketDAO = new TicketDao();
     ticketDAO.setDataBaseConfig(dataBaseTestConfig);
-    dataBasePrepareService = new DataBasePrepareService();
+
+    source = new Source("jdbc:mysql://localhost:3306/test", "root", "Jsadmin4all");
   }
 
   @BeforeEach
   private void setUpPerTest() throws Exception {
+    dataBasePrepareService.clearDataBaseEntries();
     when(inputReaderUtil.readSelection()).thenReturn(1);
     when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
-
-    dataBasePrepareService.clearDataBaseEntries();
-
   }
 
   @AfterAll
@@ -65,22 +71,22 @@ public class ParkingDataBaseIT {
 
   /**
    * Test to check if a ticket is correctly save in database when a car is parked.
+   * 
+   * @throws Exception when {@link InputReaderUtil} not be able to read the vehicle numbers
    */
-  @Test
   @Order(1)
-  void testParkingACar() {
+  @Test
+  void testParkingACar() throws Exception {
     // GIVEN
-    Source source = new Source("jdbc:mysql://localhost:3306/test", "root", "Jsadmin4all");
+
     Changes changesWhenParkingCar = new Changes(source);
     changesWhenParkingCar.setStartPointNow();
-    
-    //WHEN
-    ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-    parkingService.processIncomingVehicle();
 
+    //WHEN
+    parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+    parkingService.processIncomingVehicle();
     changesWhenParkingCar.setEndPointNow();
 
-    
     // THEN:
     // check that a ticket is actually saved in DB comparing its values before and after
 
@@ -108,27 +114,36 @@ public class ParkingDataBaseIT {
 
   /**
    * test to check if the far and out time are correctly generated and save in database.
+   * 
+   * @throws Exception when {@link InputReaderUtil} not be able to read the vehicle number
    */
-  @Test
   @Order(2)
-  void testParkingLotExit() {
+  @Test
+  void testParkingLotExit() throws Exception {
     // GIVEN:change testParkingACar() by parkingService.processIncomingVehicle to not depends of the
     // first IT and respect "FIRST"
-    Source source = new Source("jdbc:mysql://localhost:3306/test", "root", "Jsadmin4all");
+
     Changes changesWhenExitedCar = new Changes(source);
 
-    ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+    parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
     parkingService.processIncomingVehicle();
-
     changesWhenExitedCar.setStartPointNow();
 
     // WHEN
+    // Be careful : we have to wait a minimum of 1 second before run processExitingVehicule() else
+    // the outTime can be earlier then the inTime of exiting vehicle
+
+    try {
+      Thread.sleep(1000);
+    } catch (InterruptedException ex) {
+      Thread.currentThread().interrupt();
+    }
+
     parkingService.processExitingVehicle();
 
     changesWhenExitedCar.setEndPointNow();
 
     // THEN
-
     // check that the fare generated correctly comparing the values before and after knowing that
     // FareCalculator.calculateFar() was tested in FareCalculatorTest
 
@@ -140,7 +155,7 @@ public class ParkingDataBaseIT {
 
         .rowAtEndPoint()
         .value("PRICE").isGreaterThanOrEqualTo(0)
-        .value("OUT_TIME").isDateTime();
+        .value("OUT_TIME").isDateTime().isNotNull();
 
     // check out time are populated correctly in the database comparing values after and before
 
@@ -149,7 +164,5 @@ public class ParkingDataBaseIT {
         .rowAtStartPoint().value("AVAILABLE").isFalse()
 
         .rowAtEndPoint().value("AVAILABLE").isTrue();
-
-
   }
 }
