@@ -2,9 +2,8 @@ package com.parkit.parkingsystem.constants;
 
 /**
  * class representing the rate per hour for a type if vehicle.
- * 
- * @author delaval
  *
+ * @author delaval
  */
 public class Fare {
 
@@ -17,7 +16,7 @@ public class Fare {
 
   /**
    * method to round Fare with 2 numbers after comma.
-   * 
+   *
    * @param price a price of type double
    * @return the price rounded with 2 numbers after the comma
    */

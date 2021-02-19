@@ -6,7 +6,7 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * instrument to read data from console.
- * 
+ *
  * @author delaval
  *
  */
@@ -17,7 +17,7 @@ public class InputReaderUtil {
 
   /**
    * method use to read the number corresponding to the choice for the menu.
-   * 
+   *
    * @return the number of the menu's process
    */
   public int readSelection() {
@@ -33,10 +33,10 @@ public class InputReaderUtil {
 
   /**
    * method to read the number plate from the console.
-   * 
-   * @return a String = the number plate of the vehicle
+   *
+   * @return           String = the number plate of the vehicle
    * @throws Exception a error when reading the number plate and display a error's message on
-   *         console
+   *                     console
    */
   public String readVehicleRegistrationNumber() throws Exception {
     try {
@@ -55,7 +55,7 @@ public class InputReaderUtil {
 
   /**
    * method to give another scan for test to this class.
-   * 
+   *
    * @param scan the scanner to read from console
    */
   public static void setScan(Scanner scan) {
