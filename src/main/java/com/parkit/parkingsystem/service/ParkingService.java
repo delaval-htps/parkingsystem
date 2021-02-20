@@ -105,7 +105,8 @@ public class ParkingService {
       if (parkingNumber > 0) {
         parkingSpot = new ParkingSpot(parkingNumber, parkingType, true);
       } else {
-        throw new Exception("Error fetching parking number from DB. Parking slots might be full");
+        throw new java.lang.Exception(
+            "Error fetching parking number from DB. Parking slots might be full");
       }
     } catch (IllegalArgumentException ie) {
       logger.error("Error parsing user input for type of vehicle", ie);
