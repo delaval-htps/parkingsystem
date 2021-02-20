@@ -204,14 +204,9 @@ public class ParkingServiceTest {
     @Test
     void processIncomingWhenParkFulledTest() {
       // ARRANGE
-      try {
-        when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
-      } catch (Exception e) {
-        e.printStackTrace();
-        throw new RuntimeException("Failed to set up test mock InputReaderUntil");
-      }
+
       when(inputReaderUtil.readSelection()).thenReturn(1);
-      when(parkingSpotDAO.getNextAvailableSlot(null)).thenReturn(-1);
+      when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(-1);
 
       logCaptor = LogCaptor.forClass(ParkingService.class);
 
