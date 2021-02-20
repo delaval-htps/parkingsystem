@@ -1,5 +1,6 @@
 package com.parkit.parkingsystem.util;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,18 +35,19 @@ public class InputReaderUtil {
   /**
    * method to read the number plate from the console.
    *
-   * @return           String = the number plate of the vehicle
+   * @return String = the number plate of the vehicle
    * @throws Exception a error when reading the number plate and display a error's message on
-   *                     console
+   *         console
    */
-  public String readVehicleRegistrationNumber() throws Exception {
+  public String readVehicleRegistrationNumber()
+      throws NoSuchElementException, IllegalStateException {
     try {
       String vehicleRegNumber = scan.nextLine();
       if (vehicleRegNumber == null || vehicleRegNumber.trim().length() == 0) {
         throw new IllegalArgumentException("Invalid input provided");
       }
       return vehicleRegNumber;
-    } catch (Exception e) {
+    } catch (NoSuchElementException | IllegalStateException e) {
       logger.error("Error while reading user input from Shell", e);
       logger
           .info("Error reading input. Please enter a valid string for vehicle registration number");
