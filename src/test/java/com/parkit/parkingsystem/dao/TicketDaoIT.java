@@ -60,7 +60,7 @@ public class TicketDaoIT {
    *
    */
   @Nested
-  public class SaveTicketTest {
+  class SaveTicketTest {
 
     @Test
     void saveTicketWhenNoConnectionDatabase() {
