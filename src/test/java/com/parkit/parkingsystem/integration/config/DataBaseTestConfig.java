@@ -11,9 +11,8 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * class of configuration to connect to the database.
- * 
- * @author delaval
  *
+ * @author delaval
  */
 public class DataBaseTestConfig extends DataBaseConfig {
 

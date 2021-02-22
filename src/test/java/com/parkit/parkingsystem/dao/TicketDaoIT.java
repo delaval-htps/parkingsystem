@@ -28,9 +28,8 @@ import org.mockito.Mockito;
 
 /**
  * class integration Test to test TicketDao with the database test.
- * 
- * @author delaval
  *
+ * @author delaval
  */
 public class TicketDaoIT {
   private static TicketDao ticketDaoUnderTest;
@@ -56,17 +55,17 @@ public class TicketDaoIT {
 
   /**
    * class test for save a ticket in the database.
-   * 
+   *
    * @author delaval
    *
    */
   @Nested
-  public class SaveTicketTest {
+  class SaveTicketTest {
 
     @Test
     void saveTicketWhenNoConnectionDatabase() {
       // ARRANGE
-     
+
       dataBaseConfig = null;
       ticketDaoUnderTest.setDataBaseConfig(dataBaseConfig);
 
@@ -118,8 +117,8 @@ public class TicketDaoIT {
       assertThat(tableTicket).column("PARKING_NUMBER").value().isEqualTo(1);
       assertThat(tableTicket).column("VEHICLE_REG_NUMBER").value().isEqualTo("ABCDEF");
       assertThat(tableTicket).column("PRICE").value().isEqualTo(Fare.CAR_RATE_PER_HOUR);
-      assertThat(tableTicket).column("IN_TIME").value().isDateTime().isCloseTo(
-          DateTimeValue.from(new Timestamp(inTime.getTime())), TimeValue.of(0, 0, 1));
+      assertThat(tableTicket).column("IN_TIME").value().isDateTime()
+          .isCloseTo(DateTimeValue.from(new Timestamp(inTime.getTime())), TimeValue.of(0, 0, 1));
 
       assertThat(tableTicket).column("OUT_TIME").value().isNull();
     }
@@ -163,7 +162,7 @@ public class TicketDaoIT {
 
   /**
    * class Test to get a ticket from a database.
-   * 
+   *
    * @author delaval
    *
    */
@@ -219,7 +218,7 @@ public class TicketDaoIT {
       ticket = ticketDaoUnderTest.getTicket("ABCDEF");
 
       // ASSERT
-      assertThat(ticket.getId()).isGreaterThan(0);
+      assertThat(ticket.getId()).isPositive();
       assertThat(ticket.getParkingSpot().getId()).isEqualTo(1);
       assertThat(ticket.getVehicleRegNumber()).isEqualTo("ABCDEF");
       assertThat(ticket.getPrice()).isEqualTo(Fare.CAR_RATE_PER_HOUR);
@@ -230,7 +229,7 @@ public class TicketDaoIT {
 
   /**
    * class Test to get a ticket from a database.
-   * 
+   *
    * @author delaval
    *
    */
@@ -294,6 +293,7 @@ public class TicketDaoIT {
 
   /**
    * class Test to get a ticket from a database.
+   *
    * @author delaval
    */
   @Nested

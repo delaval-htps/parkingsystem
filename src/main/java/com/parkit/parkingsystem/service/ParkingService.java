@@ -15,9 +15,8 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * Services to control the access of vehicle in the park.
- * 
- * @author delaval
  *
+ * @author delaval
  */
 public class ParkingService {
 
@@ -32,7 +31,7 @@ public class ParkingService {
 
   /**
    * Constructor with parameters.
-   * 
+   *
    * @param inputReaderUtil the object allowing to read in console the number of validation menu and
    *        the number plate of vehicle
    * @param parkingSpotDao service to manage the parking place into the SGBD
@@ -93,7 +92,7 @@ public class ParkingService {
 
   /**
    * method to give the next number place available in the park.
-   * 
+   *
    * @return a ParkingSpot including: the type of the vehicle, the number of the parking place used
    *         and its availability
    */
@@ -106,7 +105,8 @@ public class ParkingService {
       if (parkingNumber > 0) {
         parkingSpot = new ParkingSpot(parkingNumber, parkingType, true);
       } else {
-        throw new Exception("Error fetching parking number from DB. Parking slots might be full");
+        throw new java.lang.Exception(
+            "Error fetching parking number from DB. Parking slots might be full");
       }
     } catch (IllegalArgumentException ie) {
       logger.error("Error parsing user input for type of vehicle", ie);
@@ -141,7 +141,7 @@ public class ParkingService {
    * and the price and released the parking place.
    */
   public void processExitingVehicle() {
-    
+
     try {
       String vehicleRegNumber = getVehichleRegNumber();
       Ticket ticket = ticketDao.getTicket(vehicleRegNumber);

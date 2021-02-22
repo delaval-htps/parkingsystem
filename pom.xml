@@ -5,35 +5,32 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.parkit</groupId>
 	<artifactId>parking-system</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>0.1.8-SNAPSHOT</version>
 	<packaging>jar</packaging>
 <!-- ============================================================ -->
-<!-- ========================== Properties ====================== -->
+<!--  Properties -->
 <!-- ============================================================ -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
 		
-		<!--===== boolean for run mvn test/verify with option -D =====-->
-		<skipTests>false</skipTests>
-		<skipITs>${skipTests}</skipITs>
-		<skipUTs>${skipTests}</skipUTs>
-		
-		<!--=============information about sonarcloud ==================-->
+		<!--===Properties Sonarcloud=== -->
 		<sonar.projectKey>delaval-htps_parkingsystem</sonar.projectKey>
 		<sonar.organization>delaval-htps</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 		<sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
 		<sonar.language>java</sonar.language>
-		
+
+		<!-- properties jacoco -->
+		<jacoco.execution.data.file>${project.build.directory}/jacoco.exec</jacoco.execution.data.file>
 	</properties>
 <!-- ============================================================ -->
-<!-- ========================== Dependencies ==================== -->
+<!--  Dependencies  -->
 <!-- ============================================================ -->
 	<dependencies>
 
-		<!-- ===================== Log4j2 for application ====================== -->
+		<!--=== Log4j2 for application === -->
 		  <dependency>
 		    <groupId>org.apache.logging.log4j</groupId>
 		    <artifactId>log4j-api</artifactId>
@@ -44,26 +41,38 @@
 		    <artifactId>log4j-core</artifactId>
 		    <version>2.14.0</version>
 		  </dependency>
-		<!-- ===================== Logback for test ====================== -->
+		  
+		<!--===  Logback for test ===-->
 		 <dependency>
 		    <groupId>ch.qos.logback</groupId>
 		    <artifactId>logback-classic</artifactId>
 		    <version>1.1.7</version>
 		</dependency>
-		  <!-- ===================== LogCaptor for test ====================== -->
+		  
+		  <!-- === LogCaptor for test === -->
 		  <dependency>
 		    <groupId>io.github.hakky54</groupId>
 		    <artifactId>logcaptor</artifactId>
 		    <version>2.4.0</version>
 		    <scope>test</scope>
 		</dependency>
-		<!-- ===================== mysql ====================== -->
+		
+		<!-- === awaitility -->
+		<dependency>
+	      <groupId>org.awaitility</groupId>
+    	  <artifactId>awaitility</artifactId>
+    	  <version>4.0.3</version>
+    	  <scope>test</scope>
+		</dependency>
+		
+		<!-- === Mysql ===-->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>8.0.17</version>
 		</dependency>
-		<!-- ===================== Junit ====================== -->
+		
+		<!-- === JUnit ===-->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
@@ -76,7 +85,16 @@
 			<version>5.8.0-M1</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- ================= AssertJ ===================== -->
+
+		<!-- === JUnit-vintage for Junit4 === -->
+		<dependency>
+		    <groupId>org.junit.vintage</groupId>
+		    <artifactId>junit-vintage-engine</artifactId>
+		    <version>5.8.0-M1</version>
+		    <scope>test</scope>
+		</dependency>
+
+		<!-- === AssertJ ===-->
 		<dependency>
 			  <groupId>org.assertj</groupId>
 			  <artifactId>assertj-core</artifactId>
@@ -84,52 +102,38 @@
 			  <version>3.18.1</version>
 			  <scope>test</scope>
 			</dependency>
-		<!-- ================= AssertJ DB ===================== -->
+
+		<!-- === AssertJ DB ===-->
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-db</artifactId>
   			<version>2.0.2</version>
   			<scope>test</scope>
 		</dependency>
-		<!-- ================= Mockito ===================== -->
+
+		<!-- === Mockito ===-->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-junit-jupiter</artifactId>
 			<version>2.23.4</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-		  <groupId>com.github.stefanbirkner</groupId>
-		  <artifactId>system-rules</artifactId>
-		  <version>1.19.0</version>
-		  <scope>test</scope>
-		</dependency>
-		<!-- ================= PowerMockito ===================== -->
-		<dependency>
-		    <groupId>org.powermock</groupId>
-		    <artifactId>powermock-module-junit4</artifactId>
-		    <version>2.0.2</version>
-		    <scope>test</scope>
-		</dependency>
-		<dependency>
-		    <groupId>org.powermock</groupId>
-		    <artifactId>powermock-api-mockito2</artifactId>
-		    <version>2.0.2</version>
-		    <scope>test</scope>
-		</dependency>
-		<!-- ================= Mvn Assembly ===================== -->
+
+		<!-- === Mvn Assembly === -->
 		<dependency>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-assembly-plugin</artifactId>
 			<version>3.0.0</version>
 		</dependency>
-		<!-- ================= SpotBugs ===================== -->
+
+		<!-- === SpotBugs ===-->
 		<dependency>
 			<groupId>com.github.spotbugs</groupId>
 			<artifactId>spotbugs-maven-plugin</artifactId>
 			<version>4.2.0</version>
 		</dependency>
-		<!-- ================= Jacoco ===================== -->
+
+		<!-- === Jacoco ===-->
 		<dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
@@ -138,158 +142,231 @@
         </dependency>
 	</dependencies>
 <!-- ============================================================ -->
-<!-- ========================== build ========================= -->
+<!-- build -->
 <!-- ============================================================ -->
 	<build>
-	<!-- ====================resources============================ -->
-		
+		<!-- ============================================================ -->
+		<!-- PluginManagement -->
+		<!-- ============================================================ -->
 		<pluginManagement>
-			<!-- ================ plugin checkstyle google-check=============== -->
+			
 			<plugins>
+				<!-- === checkStyle ===-->
 				<plugin>
 				    <groupId>org.apache.maven.plugins</groupId>
 				    <artifactId>maven-checkstyle-plugin</artifactId>
-				    <version>2.17</version>
+				    <version>3.1.2</version>
+				    <configuration>
+			          <configLocation>${project.basedir}/google_checks.xml</configLocation>
+			        </configuration>
+			        <dependencies>
+			           <dependency>
+			             <groupId>com.puppycrawl.tools</groupId>
+			             <artifactId>checkstyle</artifactId>
+			             <version>8.40</version>
+			           </dependency>
+			         </dependencies>
+				</plugin>
+
+				<!-- === googleFormatter ===-->
+				<plugin>
+				    <groupId>com.theoryinpractise</groupId>
+				    <artifactId>googleformatter-maven-plugin</artifactId>
+				    <version>1.7.5</version>
 				    <executions>
 				        <execution>
-				            <id>validate</id>
-				            <phase>validate</phase>
+				            <id>reformat-sources</id>
 				            <configuration>
-				                <configLocation>google_checks.xml</configLocation>
-				                <suppressionsLocation>suppressions.xml
-				                </suppressionsLocation>
-				                <encoding>UTF-8</encoding>
-				                <failsOnError>true</failsOnError>
-				                <consoleOutput>true</consoleOutput>
-				                <includeTestSourceDirectory>true
-				                </includeTestSourceDirectory>
+				                <includeStale>false</includeStale>
+				                <style>GOOGLE</style>
+				                <formatMain>True</formatMain>
+				                <formatTest>true</formatTest>
+				                <filterModified>false</filterModified>
+				                <skip>false</skip>
+				                <fixImports>false</fixImports>
+				                <maxLineLength>100</maxLineLength>
 				            </configuration>
 				            <goals>
-				                <goal>check</goal>
+				                <goal>format</goal>
 				            </goals>
+				            <phase>process-sources</phase>
 				        </execution>
 				    </executions>
-			</plugin>
-			<!-- ================ plugin googleFormatter=============== -->
-			<plugin>
-			    <groupId>com.theoryinpractise</groupId>
-			    <artifactId>googleformatter-maven-plugin</artifactId>
-			    <version>1.7.5</version>
-			    <executions>
-			        <execution>
-			            <id>reformat-sources</id>
-			            <configuration>
-			                <includeStale>false</includeStale>
-			                <style>GOOGLE</style>
-			                <formatMain>True</formatMain>
-			                <formatTest>true</formatTest>
-			                <filterModified>false</filterModified>
-			                <skip>false</skip>
-			                <fixImports>false</fixImports>
-			                <maxLineLength>100</maxLineLength>
-			            </configuration>
-			            <goals>
-			                <goal>format</goal>
-			            </goals>
-			            <phase>process-sources</phase>
-			        </execution>
-			    </executions>
-			</plugin>
-		</plugins>
-
+				</plugin>
+				<!-- === Sonarcloud ===-->
+				<plugin>
+			        <groupId>org.sonarsource.scanner.maven</groupId>
+			        <artifactId>sonar-maven-plugin</artifactId>
+			        <version>3.7.0.1746</version>
+			        <configuration>
+			        	<goalPrefix>sonar</goalPrefix>
+			        </configuration>
+			    </plugin>
+			</plugins>
 		</pluginManagement>
+		<!-- ============================================================ -->
+		<!-- Plugins -->
+		<!-- ============================================================ -->
 		<plugins>
-		<!-- ================= plugin Mvn Assembly ===================== -->
-			<plugin>
+			<!-- === Mvn Assembly ===-->
+			<plugin>	
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
 					<execution>
 						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<archive>
-								<manifest>
-									<mainClass>
-										com.parkit.parkingsystem.App
-									</mainClass>
-								</manifest>
-							</archive>
-							<descriptorRefs>
-								<descriptorRef>jar-with-dependencies</descriptorRef>
-							</descriptorRefs>
-						</configuration>
+							<goals>
+								<goal>single</goal>
+							</goals>
+							<configuration>
+								<archive>
+									<manifest>
+										<mainClass>
+											com.parkit.parkingsystem.App
+										</mainClass>
+									</manifest>
+								</archive>
+								<descriptorRefs>
+									<descriptorRef>jar-with-dependencies</descriptorRef>
+								</descriptorRefs>
+							</configuration>
 					</execution>
 				</executions>
 			</plugin>
 		
-			<!-- ================ plugin sonarcloud=============== -->
+			<!-- === Surefire ===-->
+		 	<plugin>
+	        	<groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-surefire-plugin</artifactId>
+	            <version>2.21.0</version>
+	            <dependencies>
+					<dependency>
+	                	<groupId>org.junit.platform</groupId>
+	               		<artifactId>junit-platform-surefire-provider</artifactId>
+	                	<version>1.2.0</version>
+	               	</dependency>
+	            </dependencies>
+	            <configuration>
+	       		    <classpathDependencyExcludes>
+						<classpathDependencyExclude>org.apache.logging.log4j:log4j-slf4j-impl</classpathDependencyExclude>
+		    		</classpathDependencyExcludes> 
+	                <excludes>
+	                   <exclude>**/*IT.java</exclude>
+	                </excludes>
+	            </configuration>
+	            <executions>
+					<execution>
+	                    <id>integration-test</id>
+	                    <goals>
+	                       <goal>test</goal>
+	                	</goals>
+	                  	<phase>integration-test</phase>
+	                        <configuration>
+	                        	<classpathDependencyExcludes>
+									<classpathDependencyExclude>org.apache.logging.log4j:log4j-slf4j-impl</classpathDependencyExclude>
+		    					</classpathDependencyExcludes> 
+	                            <excludes>
+	                                <exclude>none</exclude>
+	                            </excludes>
+	                            <includes>
+	                                <include>**/*IT.java</include>
+	                            </includes>
+	                        </configuration>
+	                 </execution>
+	             </executions>
+			</plugin>
+		
+			<!-- === Jacoco === -->
 			<plugin>
-		        <groupId>org.sonarsource.scanner.maven</groupId>
-		        <artifactId>sonar-maven-plugin</artifactId>
-		        <version>3.7.0.1746</version>
-		        <configuration>
-		        	<goal>sonar</goal>
-		        </configuration>
-		    </plugin>
-	 <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.21.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.junit.platform</groupId>
-                        <artifactId>junit-platform-surefire-provider</artifactId>
-                        <version>1.2.0</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                <classpathDependencyExcludes>
-					<classpathDependencyExclude>org.apache.logging.log4j:log4j-slf4j-impl</classpathDependencyExclude>
-			    </classpathDependencyExcludes> 
-                    <excludes>
-                        <exclude>**/*IT.java</exclude>
-                    </excludes>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>integration-test</id>
-                        <goals>
-                            <goal>test</goal>
-                        </goals>
-                        <phase>integration-test</phase>
-                        <configuration>
-                            <excludes>
-                                <exclude>none</exclude>
-                            </excludes>
-                            <includes>
-                                <include>**/*IT.java</include>
-                            </includes>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.6</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>jacoco-report</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+				<groupId>org.jacoco</groupId>
+	            <artifactId>jacoco-maven-plugin</artifactId>
+	            <version>0.8.6</version>
+	            <executions>
+	                <execution>
+	                    <goals>
+	                       <goal>prepare-agent</goal>
+	                    </goals>
+	                </execution>
+	                <execution>
+	                   <id>jacoco-report</id>
+	                   <phase>test</phase>
+	                      <goals>
+	                         <goal>report</goal>
+	                      </goals>
+	                </execution>
+	             </executions>
+	         </plugin>
+	         
+	         <!-- === Site === -->
+	         <plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-site-plugin</artifactId>
+			  <version>3.9.1</version>
+			</plugin>
+			
+			<!-- === Project-info-reports === -->
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-project-info-reports-plugin</artifactId>
+			  <version>3.1.1</version>
+			</plugin>
+			
+			
 		</plugins>
 	</build>
+	<!-- ============================================================ -->
+	<!-- Reporting -->
+	<!-- ============================================================ -->
+	<reporting>
+		<plugins>
+			<plugin>
+		      <!-- === JXR Plugin generates a cross-reference of the project's sources=== -->
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-jxr-plugin</artifactId>
+		      <version>2.5</version>
+		    </plugin>
+			
+			<plugin>
+		      <!-- === Javadoc Plugin === -->
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-javadoc-plugin</artifactId>
+		      <version>3.2.0</version>
+		      <configuration>
+		        <additionalparam>-Xdoclint:none</additionalparam>
+		      </configuration>
+		    </plugin>
+			
+			<plugin>
+		      <!-- === Surefire Report Plugin === -->
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-surefire-report-plugin</artifactId>
+		      <version>3.0.0-M5</version>
+		    </plugin>
+		    
+			<plugin>
+	            <groupId>org.jacoco</groupId>
+	            <artifactId>jacoco-maven-plugin</artifactId>
+	            <configuration>
+	                <dataFile>${jacoco.execution.data.file}</dataFile>
+	            </configuration>
+	            <reportSets>
+	                <reportSet>
+	                    <reports>
+	                        <report>report</report>
+	                    </reports>
+	                </reportSet>
+	            </reportSets>
+        	</plugin>
+			<plugin>
+		      <!-- === Checkstyle Plugin === -->
+		      <groupId>org.apache.maven.plugins</groupId>
+		      <artifactId>maven-checkstyle-plugin</artifactId>
+		      <version>3.1.2</version>
+		      <configuration>
+		      	<configLocation>${project.basedir}/google_checks.xml</configLocation>
+		      </configuration>
+		    </plugin>
+  
+		</plugins>
+	</reporting>
 </project>

@@ -31,9 +31,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 /**
  * class of tests to check the use of {@link ParkingService}.
- * 
- * @author delaval
  *
+ * @author delaval
  */
 @ExtendWith(MockitoExtension.class)
 public class ParkingServiceTest {
@@ -69,7 +68,7 @@ public class ParkingServiceTest {
 
   /**
    * class test to check the correct process incoming vehicle.
-   * 
+   *
    * @author delaval
    *
    */
@@ -100,7 +99,7 @@ public class ParkingServiceTest {
       // ACT
       parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
       parkingService.processIncomingVehicle();
-      
+
       // ASSERT
       verify(parkingSpotDAO, times(1)).updateParking(parkingSpotCaptor.capture());
       verify(ticketDAO, times(1)).saveTicket(ticketCaptor.capture());
@@ -115,15 +114,15 @@ public class ParkingServiceTest {
       assertThat(ticketCaptor.getValue().getVehicleRegNumber()).isEqualTo("ABCDEF");
 
       assertThat(parkingSpotCaptor.getValue().isAvailable()).isFalse();
-      
+
       assertThat(logCaptor.getWarnLogs())
           .containsExactly(expectedWarningMessageProcessIncomingVehicle);
-      assertThat(logCaptor.getInfoLogs()).contains(expectedInfoMessageProcessIncomingVehicle
-          + ticketCaptor.getValue().getParkingSpot().getId())
-          .contains(
-              expectedInfoMessageProcessIncomingVehicle2
-                  + ticketCaptor.getValue().getVehicleRegNumber()
-                  + " is:" + ticketCaptor.getValue().getInTime());
+      assertThat(logCaptor.getInfoLogs())
+          .contains(expectedInfoMessageProcessIncomingVehicle
+              + ticketCaptor.getValue().getParkingSpot().getId())
+          .contains(expectedInfoMessageProcessIncomingVehicle2
+              + ticketCaptor.getValue().getVehicleRegNumber() + " is:"
+              + ticketCaptor.getValue().getInTime());
     }
 
     /**
@@ -150,7 +149,7 @@ public class ParkingServiceTest {
       // ACT
       parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
       parkingService.processIncomingVehicle();
-      
+
       // ASSERT
       verify(parkingSpotDAO, times(1)).updateParking(parkingSpotCaptor.capture());
       verify(ticketDAO, times(1)).saveTicket(ticketCaptor.capture());
@@ -196,8 +195,7 @@ public class ParkingServiceTest {
       verify(parkingSpotDAO, never()).updateParking(any(ParkingSpot.class));
       verify(ticketDAO, never()).saveTicket(any(Ticket.class));
 
-      assertThat(logCaptor.getErrorLogs())
-          .contains(expectedErrorMessageInputReaderUtil);
+      assertThat(logCaptor.getErrorLogs()).contains(expectedErrorMessageInputReaderUtil);
     }
 
     /**
@@ -206,14 +204,9 @@ public class ParkingServiceTest {
     @Test
     void processIncomingWhenParkFulledTest() {
       // ARRANGE
-      try {
-        when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
-      } catch (Exception e) {
-        e.printStackTrace();
-        throw new RuntimeException("Failed to set up test mock InputReaderUntil");
-      }
+
       when(inputReaderUtil.readSelection()).thenReturn(1);
-      when(parkingSpotDAO.getNextAvailableSlot(null)).thenReturn(-1);
+      when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(-1);
 
       logCaptor = LogCaptor.forClass(ParkingService.class);
 
@@ -238,7 +231,7 @@ public class ParkingServiceTest {
 
       parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
       parkingService = Mockito.spy(parkingService);
-     
+
       Mockito.doReturn(null).when(parkingService).getNextParkingNumberIfAvailable();
 
       // ACT
@@ -279,7 +272,7 @@ public class ParkingServiceTest {
 
   /**
    * class tests for method processingExitingVehicle.
-   * 
+   *
    * @author delaval
    *
    */
@@ -426,7 +419,7 @@ public class ParkingServiceTest {
      * </ul>
      */
     @Test
-    void processExitingVehicle_WhenTicketNotInDB() {
+    void processExitingVehicle_WhenTicketNotInDb() {
       // ARRANGE
       parkingSpot = new ParkingSpot(1, ParkingType.CAR, false);
       when(ticketDAO.getTicket("ABCDEF")).thenReturn(null);
@@ -543,7 +536,7 @@ public class ParkingServiceTest {
   }
   /**
    * class test to verify if the given next parking spot available to park a vehicle is correct.
-   * 
+   *
    * @author delaval
    *
    */

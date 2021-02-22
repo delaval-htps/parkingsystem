@@ -4,7 +4,7 @@ import com.parkit.parkingsystem.constants.ParkingType;
 
 /**
  * represent the parking space in the park.
- * 
+ *
  * @author delaval
  */
 public class ParkingSpot {
@@ -14,7 +14,7 @@ public class ParkingSpot {
 
   /**
    * Constructor with parameters.
-   * 
+   *
    * @param number the number of the place
    * @param parkingType the type of place ie: BIKE or CAR {@link ParkingType}
    * @param isAvailable boolean to represent the availability of parking space

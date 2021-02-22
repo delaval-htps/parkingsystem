@@ -2,9 +2,8 @@ package com.parkit.parkingsystem.constants;
 
 /**
  * class representing all SQL Query.
- * 
- * @author delaval
  *
+ * @author delaval
  */
 public class DbConstants {
 
