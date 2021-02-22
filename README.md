@@ -57,7 +57,17 @@ This app uses Java to run and stores the data in Mysql DB.
 
 * sonarcloud didn't give the correct coverage according to jacoco report.
 * update of pom.xml to have the correct report in jacoco
-* **version LTS:** <ins>tests are OK and sonarcloud report coverage is 84,6%</ins>
+ 
+ **V0.1.8 LTS**:
+ 
+ * Fixed bugs according to sonarcloud
+ * Generate a maven site to have different reports (execute mvn site): 
+    * Source and test source Xref
+    * Javadoc
+    * Surefire Report
+    * Jacoco Report
+    * Checkstyle Report
+ * **version LTS:** <ins>tests are OK and sonarcloud report coverage is about 84,6%</ins>
  
 ## Getting Started
 

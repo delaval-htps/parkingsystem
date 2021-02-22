@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author delaval
  */
-public class ParkinSpotTest {
+class ParkinSpotTest {
   private static ParkingSpot parkingSpot;
   private boolean result;
 

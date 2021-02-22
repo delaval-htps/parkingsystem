@@ -31,7 +31,7 @@ import org.mockito.Mockito;
  *
  * @author delaval
  */
-public class TicketDaoIt {
+public class TicketDaoIT {
   private static TicketDao ticketDaoUnderTest;
   private static DataBaseConfig dataBaseConfig;
   private static DataBasePrepareService dataBasePrepareService;
@@ -60,7 +60,7 @@ public class TicketDaoIt {
    *
    */
   @Nested
-  public class SaveTicketTest {
+  class SaveTicketTest {
 
     @Test
     void saveTicketWhenNoConnectionDatabase() {
@@ -218,7 +218,7 @@ public class TicketDaoIt {
       ticket = ticketDaoUnderTest.getTicket("ABCDEF");
 
       // ASSERT
-      assertThat(ticket.getId()).isGreaterThan(0);
+      assertThat(ticket.getId()).isPositive();
       assertThat(ticket.getParkingSpot().getId()).isEqualTo(1);
       assertThat(ticket.getVehicleRegNumber()).isEqualTo("ABCDEF");
       assertThat(ticket.getPrice()).isEqualTo(Fare.CAR_RATE_PER_HOUR);

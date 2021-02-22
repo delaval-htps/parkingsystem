@@ -1,6 +1,7 @@
 package com.parkit.parkingsystem.integration;
 
 import static org.assertj.db.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 import static org.mockito.Mockito.when;
 
 import com.parkit.parkingsystem.dao.ParkingSpotDao;
@@ -11,6 +12,7 @@ import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.assertj.db.type.Changes;
 import org.assertj.db.type.Source;
+import org.assertj.db.type.Table;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,7 +32,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
  */
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ParkingDataBaseIt {
+class ParkingDataBaseIT {
 
   private static DataBaseTestConfig dataBaseTestConfig;
   private static DataBasePrepareService dataBasePrepareService;
@@ -117,6 +119,8 @@ public class ParkingDataBaseIt {
     // GIVEN:change testParkingACar() by parkingService.processIncomingVehicle to not depends of the
     // first IT and respect "FIRST"
 
+    final Table ticket = new Table(source, "ticket");
+
     Changes changesWhenExitedCar = new Changes(source);
 
     parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
@@ -127,11 +131,8 @@ public class ParkingDataBaseIt {
     // Be careful : we have to wait a minimum of 1 second before run processExitingVehicule() else
     // the outTime can be earlier then the inTime of exiting vehicle
 
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException ex) {
-      Thread.currentThread().interrupt();
-    }
+    await().untilAsserted(
+        () -> assertThat(ticket).column("IN_TIME").hasOnlyNotNullValues().isDateTime(true));
 
     parkingService.processExitingVehicle();
 
