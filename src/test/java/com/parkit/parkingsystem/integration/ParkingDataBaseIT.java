@@ -32,7 +32,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
  */
 @ExtendWith(MockitoExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ParkingDataBaseIt {
+public class ParkingDataBaseIT {
 
   private static DataBaseTestConfig dataBaseTestConfig;
   private static DataBasePrepareService dataBasePrepareService;

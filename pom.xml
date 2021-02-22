@@ -251,7 +251,7 @@
 						<classpathDependencyExclude>org.apache.logging.log4j:log4j-slf4j-impl</classpathDependencyExclude>
 		    		</classpathDependencyExcludes> 
 	                <excludes>
-	                   <exclude>**/*It.java</exclude>
+	                   <exclude>**/*IT.java</exclude>
 	                </excludes>
 	            </configuration>
 	            <executions>
@@ -269,7 +269,7 @@
 	                                <exclude>none</exclude>
 	                            </excludes>
 	                            <includes>
-	                                <include>**/*It.java</include>
+	                                <include>**/*IT.java</include>
 	                            </includes>
 	                        </configuration>
 	                 </execution>
