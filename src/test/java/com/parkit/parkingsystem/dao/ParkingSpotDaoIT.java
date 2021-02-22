@@ -78,7 +78,7 @@ public class ParkingSpotDaoIT {
       result = parkingSpotDao.getNextAvailableSlot(ParkingType.CAR);
 
       // ASSERT
-      assertThat(result).isGreaterThan(0);
+      assertThat(result).isPositive();
     }
 
     @Test
@@ -91,7 +91,7 @@ public class ParkingSpotDaoIT {
       result = parkingSpotDao.getNextAvailableSlot(ParkingType.BIKE);
 
       // ASSERT
-      assertThat(result).isGreaterThan(0);
+      assertThat(result).isPositive();
     }
 
     @Test
@@ -106,7 +106,7 @@ public class ParkingSpotDaoIT {
       result = parkingSpotDao.getNextAvailableSlot(ParkingType.CAR);
 
       // ASSERT
-      assertThat(result).isEqualTo(0);
+      assertThat(result).isZero();
     }
   }
 

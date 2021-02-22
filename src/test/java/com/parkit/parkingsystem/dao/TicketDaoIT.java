@@ -218,7 +218,7 @@ public class TicketDaoIT {
       ticket = ticketDaoUnderTest.getTicket("ABCDEF");
 
       // ASSERT
-      assertThat(ticket.getId()).isGreaterThan(0);
+      assertThat(ticket.getId()).isPositive();
       assertThat(ticket.getParkingSpot().getId()).isEqualTo(1);
       assertThat(ticket.getVehicleRegNumber()).isEqualTo("ABCDEF");
       assertThat(ticket.getPrice()).isEqualTo(Fare.CAR_RATE_PER_HOUR);
