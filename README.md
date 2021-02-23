@@ -53,12 +53,12 @@ This app uses Java to run and stores the data in Mysql DB.
 * branch coverage rise to 82.8% with Jacoco.
 * update javadoc and send to sonarcloud
 
-**V0.1.7 LTS**:
+**V0.1.7**:
 
 * sonarcloud didn't give the correct coverage according to jacoco report.
 * update of pom.xml to have the correct report in jacoco
  
- **V0.1.8 LTS**:
+ **V0.1.8**:
  
  * Fixed bugs according to sonarcloud
  * Generate a maven site to have different reports (execute mvn site): 
@@ -67,7 +67,13 @@ This app uses Java to run and stores the data in Mysql DB.
     * Surefire Report
     * Jacoco Report
     * Checkstyle Report
- * **version LTS:** <ins>tests are OK and sonarcloud report coverage is about 84,6%</ins>
+
+ 
+ **V0.1.9 LTS**:
+ 
+ * Add InputReaderUtilTest.java to Unit Tests 
+ * Storage Files Test for Scanner in folder into src/test/resources
+ * Add 2 Uts for ParkinsServiceTest to coverage all branches
  
 ## Getting Started
 

@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -17,6 +18,7 @@ import com.parkit.parkingsystem.model.ParkingSpot;
 import com.parkit.parkingsystem.model.Ticket;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 import java.util.Date;
+import java.util.NoSuchElementException;
 import nl.altindag.log.LogCaptor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -202,7 +204,7 @@ public class ParkingServiceTest {
      * test for incoming vehicle when park is full.
      */
     @Test
-    void processIncomingWhenParkFulledTest() {
+    void processIncoming_WhenParkFulledTest() {
       // ARRANGE
 
       when(inputReaderUtil.readSelection()).thenReturn(1);
@@ -226,7 +228,7 @@ public class ParkingServiceTest {
      * test for incoming vehicle with no parking spot= null.
      */
     @Test
-    void processIncomingWhenNullParkingSpotTest() {
+    void processIncoming_WhenNullParkingSpotTest() {
       // ARRANGE
 
       parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
@@ -247,7 +249,7 @@ public class ParkingServiceTest {
      * test for incoming car with a given parking spot negative.
      */
     @Test
-    void processIncomingWhenNegativeParkingSpotTest() {
+    void processIncoming_WhenNegativeParkingSpotTest() {
       // ARRANGE
 
       parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
@@ -268,6 +270,48 @@ public class ParkingServiceTest {
 
     }
 
+    /**
+     * test for incoming car with number plate can't be read by system. because of no number plate
+     */
+    @Test
+    void processIncoming_WhenNoNumberPlate() {
+      // ARRANGE
+      doThrow(NoSuchElementException.class).when(inputReaderUtil).readVehicleRegistrationNumber();
+      when(inputReaderUtil.readSelection()).thenReturn(1);
+      when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
+
+      parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+      logCaptor = LogCaptor.forClass(ParkingService.class);
+
+      // ACT
+      parkingService.processIncomingVehicle();
+
+      // ASSERT
+      assertThat(logCaptor.getErrorLogs()).containsExactly("Unable to process incoming vehicle");
+
+    }
+
+    /**
+     * test for incoming car with number plate can't be read by system. because of number plate with
+     * just " " in.
+     */
+    @Test
+    void processIncoming_WhenSpaceNumberPlate() {
+      // ARRANGE
+      doThrow(IllegalArgumentException.class).when(inputReaderUtil).readVehicleRegistrationNumber();
+      when(inputReaderUtil.readSelection()).thenReturn(1);
+      when(parkingSpotDAO.getNextAvailableSlot(any(ParkingType.class))).thenReturn(1);
+
+      parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+      logCaptor = LogCaptor.forClass(ParkingService.class);
+
+      // ACT
+      parkingService.processIncomingVehicle();
+
+      // ASSERT
+      assertThat(logCaptor.getErrorLogs()).containsExactly("Unable to process incoming vehicle");
+
+    }
   }
 
   /**
