@@ -20,8 +20,6 @@ import org.junit.runners.MethodSorters;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
-
 /**
  * class test to improve {@link InteractiveShell}.
  *
@@ -59,7 +57,7 @@ class InteractiveShellTest {
 
   void loadMenuUnsupportedOptionTest() {
     // ARRANGE
-    File fileTest = new File("src/test/resources/InputUnsupportedOption");
+    File fileTest = new File("src/test/resources/FileInteractiveShellTest/InputUnsupportedOption");
     Scanner mockScan = null;
     try {
       mockScan = new Scanner(fileTest);
@@ -96,7 +94,7 @@ class InteractiveShellTest {
 
   void loadMenuExitSystemTest() {
     // ARRANGE
-    File fileTest = new File("src/test/resources/InputExit");
+    File fileTest = new File("src/test/resources/FileInteractiveShellTest/InputExit");
     Scanner mockScan = null;
     try {
       mockScan = new Scanner(fileTest);
@@ -126,7 +124,7 @@ class InteractiveShellTest {
   @Test
   void loadMenuProcessIncomingVehicleTest() {
     // ARRANGE
-    File fileTest = new File("src/test/resources/InputIncoming");
+    File fileTest = new File("src/test/resources/FileInteractiveShellTest/InputIncoming");
     Scanner mockScan = null;
     try {
       mockScan = new Scanner(fileTest);
@@ -161,7 +159,7 @@ class InteractiveShellTest {
   @Test
   void loadMenuProcessExitingVehicleTest() {
     // ARRANGE
-    File fileTest = new File("src/test/resources/InputExiting");
+    File fileTest = new File("src/test/resources/FileInteractiveShellTest/InputExiting");
     Scanner mockScan = null;
     try {
       mockScan = new Scanner(fileTest);
@@ -194,7 +192,7 @@ class InteractiveShellTest {
   @Test
   void loadMenuWithoutSetParkingService() {
     // ARRANGE
-    File fileTest = new File("src/test/resources/InputExit");
+    File fileTest = new File("src/test/resources/FileInteractiveShellTest/InputExit");
     Scanner mockScan = null;
     try {
       mockScan = new Scanner(fileTest);
