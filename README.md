@@ -69,11 +69,17 @@ This app uses Java to run and stores the data in Mysql DB.
     * Checkstyle Report
 
  
- **V0.1.9 LTS**:
+ **V0.1.9 **:
  
  * Add InputReaderUtilTest.java to Unit Tests 
  * Storage Files Test for Scanner in folder into src/test/resources
  * Add 2 Uts for ParkinsServiceTest to coverage all branches
+ 
+ **V0.2.0 LTS**
+ 
+ * Add Badge Sonarcloud 
+ 
+ [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=delaval-htps_parkingsystem&metric=alert_status)](https://sonarcloud.io/dashboard?id=delaval-htps_parkingsystem)
  
 ## Getting Started
 
