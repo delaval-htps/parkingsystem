@@ -357,6 +357,11 @@
 	                </reportSet>
 	            </reportSets>
         	</plugin>
+        	<!-- === Checkstyle Plugin === -->
+        	<plugin>
+	        	<groupId>com.github.spotbugs</groupId>
+				<artifactId>spotbugs-maven-plugin</artifactId>
+				<version>4.2.0</version></plugin>
 			<plugin>
 		      <!-- === Checkstyle Plugin === -->
 		      <groupId>org.apache.maven.plugins</groupId>
