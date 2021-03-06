@@ -74,7 +74,7 @@ public class ParkingService {
         logger.info("Please park your vehicle in spot number:{}", parkingSpot.getId());
 
         // need to format Date in string with pattern because of use
-        Format formatter = new SimpleDateFormat("E MMM d HH:mm:ss z yyyy", new Locale("EN", "en"));
+        Format formatter = new SimpleDateFormat("E MMM dd HH:mm:ss z yyyy", new Locale("EN", "en"));
         String inTimeAsString = formatter.format(ticket.getInTime());
         logger.info("Recorded in-time for vehicle number:{} is:{}", ticket.getVehicleRegNumber(),
             inTimeAsString);
